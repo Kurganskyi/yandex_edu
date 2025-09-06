@@ -1,12 +1,15 @@
 # Portfolio – Anton Kurgan
 
-#### Hi! I'm Anton Kurgan, a Systems Analyst.  
-During my studies in the **"Systems Analyst" course at Yandex Practicum**, I gained practical experience in requirements gathering and analysis, data modeling, and API design.  
+## Hi! I'm Anton Kurgan, a Systems Analyst
+
+During my studies in the **"Systems Analyst" course at Yandex Practicum**, I gained practical experience in requirements gathering and analysis, data modeling, and API design.
+
 This portfolio showcases examples of my work.  
 
 ---
 
 ## Table of Contents
+
 1. [Project Structure](#project-structure)
 2. [Projects](#projects)
 3. [Tasks](#tasks)
@@ -17,7 +20,7 @@ This portfolio showcases examples of my work.
 
 ## Project Structure
 
-```
+```text
 yandex_edu/
 │
 ├── README.md                # Main portfolio showcase
@@ -74,6 +77,7 @@ yandex_edu/
 ---
 
 ## Projects
+
 | Project | Description | Notations & Tools |
 |---------|-------------|-------------------|
 | [Project 1. Web Application Requirements Specification](./project_1.md) | Use cases (table and diagram), functional requirements, quality attributes, business rules, glossary. | UML Use Case (diagram + table format) |
@@ -85,6 +89,7 @@ yandex_edu/
 ---
 
 ## Tasks
+
 | Task | Description | Notations & Tools |
 |------|-------------|-------------------|
 | [Task 1. Process Modeling for "Vita" Clinic Network](./task_1.md) | BPMN diagrams (as-is / to-be), automation opportunities identification, prototype. | BPMN, UML State Machine, Figma |
@@ -95,20 +100,22 @@ yandex_edu/
 ---
 
 ## Skills
-- Requirements gathering and analysis  
-- UML, BPMN, DFD  
-- Data modeling: ERD, normalization, data dictionaries  
-- API design: REST, JSON, Swagger  
-- Basic SQL  
-- UX prototyping (Figma)  
-- User Stories, Job Stories, backlog management  
-- Testing fundamentals: test cases, PMI  
+
+- Requirements gathering and analysis
+- UML, BPMN, DFD
+- Data modeling: ERD, normalization, data dictionaries
+- API design: REST, JSON, Swagger
+- Basic SQL
+- UX prototyping (Figma)
+- User Stories, Job Stories, backlog management
+- Testing fundamentals: test cases, PMI
 
 ---
 
 ## Contacts
-- Telegram: [@Kurgansky](https://t.me/Kurgansky)  
-- Location: Volgograd (+3 MSK)  
+
+- Telegram: [@Kurgansky](https://t.me/Kurgansky)
+- Location: Volgograd (+3 MSK)
 
 ---
 
@@ -121,11 +128,7 @@ yandex_edu/
 
 ---
 
-<div align="center">
-
 **💼 Ready to bring analytical thinking to your team!**
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-View%20Projects-blue?style=for-the-badge)](./projects/)
 [![Contact](https://img.shields.io/badge/Contact-Telegram-green?style=for-the-badge)](https://t.me/Kurgansky)
-
-</div>
