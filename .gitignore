@@ -1,0 +1,127 @@
+# Windows системные файлы
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+
+
+# macOS системные файлы
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux системные файлы
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Временные файлы
+*.tmp
+*.temp
+*.log
+*.cache
+*.pid
+*.seed
+*.pid.lock
+
+# Резервные копии
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.bkp
+
+# Архивы
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Базы данных
+*.db
+*.sqlite
+*.sqlite3
+
+# Переменные окружения
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node.js (если используете JS инструменты)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (если используете Python скрипты)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Draw.io резервные файлы
+*.drawio.bkp
+
+# Исключить конкретные папки
+draw.io/
+Agile.homework/
+
+# Большие медиафайлы (опционально - раскомментируйте при необходимости)
+# *.mp4
+# *.avi
+# *.mov
+# *.wmv
+# *.flv
+# *.webm
+# *.mkv
+
+# Личные заметки (опционально - раскомментируйте при необходимости)
+# personal_notes.md
+# private/
