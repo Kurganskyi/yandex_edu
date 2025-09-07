@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Различные варианты запросов для тестирования -->
+
+<!-- 1. Все эксклюзивные фильмы -->
+<GetContentList>
+  <contentType>film</contentType>
+  <exclusiveOnly>true</exclusiveOnly>
+</GetContentList>
+
+<!-- 2. Все эксклюзивные сериалы -->
+<GetContentList>
+  <contentType>series</contentType>
+  <exclusiveOnly>true</exclusiveOnly>
+</GetContentList>
+
+<!-- 3. Эксклюзивный контент по жанру "Comedy" -->
+<GetContentList>
+  <genreValue>Comedy</genreValue>
+  <exclusiveOnly>true</exclusiveOnly>
+</GetContentList>
+
+<!-- 4. Эксклюзивные драмы с пагинацией -->
+<GetContentList>
+  <contentType>film</contentType>
+  <genreValue>Drama</genreValue>
+  <exclusiveOnly>true</exclusiveOnly>
+  <page>2</page>
+  <pageSize>10</pageSize>
+</GetContentList>
+
+<!-- 5. Обычный запрос без фильтра эксклюзивности (поведение не меняется) -->
+<GetContentList>
+  <contentType>all</contentType>
+  <genreValue>Action</genreValue>
+</GetContentList>

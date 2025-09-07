@@ -1,0 +1,44 @@
+{
+  "id": "103",
+  "type": "film",
+  "title": "В руках тьмы",
+  "description": "Учёный Ханс вместе со своей напарницей Анджелой Морэ начинает расследование преступления, которое приводит его к тайному могущественному братству.",
+  "imageUrl": "https://otium.imagestorage.ru/InTheHandsOfDarkness.img",
+  "previewUrl": "https://otium.previewstorage.ru/InTheHandsOfDarkness.mov",
+  "recordUrl": "https://otium.recordstorage.ru/InTheHandsOfDarkness.mov",
+  "genre": [
+    "thriller",
+    "mystery"
+  ],
+  "details": {
+    "yearOfIssue": "2010",
+    "duration": 143,
+    "country": [
+      "Италия",
+      "США"
+    ]
+  },
+  "team": {
+    "cast": [
+      "Джон Джэксон"
+    ],
+    "dubbingTeam": null
+  },
+  "language": {
+    "original": [
+      "английский"
+    ],
+    "sound": [
+      "русский",
+      "английский",
+      "итальянский"
+    ],
+    "subtitle": [
+      "русский",
+      "английский",
+      "итальянский"
+    ]
+  },
+  "rating": 6.8,
+  "favorites": false
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Пример ответа: список эксклюзивных фильмов -->
+<GetContentListResponse>
+  <total>57</total>
+  <page>1</page>
+  <pageSize>20</pageSize>
+  <contentList>
+    <content>
+      <contentType>film</contentType>
+      <contentId>102938</contentId>
+      <title>Эксклюзивный драматический фильм</title>
+      <description>Описание фильма...</description>
+      <imageUrl>https://otium.imagestorage.ru/film_102938.jpg</imageUrl>
+      <previewUrl>https://otium.previewstorage.ru/film_102938.mov</previewUrl>
+      <recordUrl>https://otium.recordstorage.ru/film_102938.mov</recordUrl>
+      
+      <genre>
+        <genreValue>Drama</genreValue>
+        <genreValue>Thriller</genreValue>
+      </genre>
+      
+      <recommended>true</recommended>
+      <exclusive>true</exclusive>
+      
+      <details>
+        <yearOfIssue>2024</yearOfIssue>
+        <duration>PT95M</duration>
+        <country>USA</country>
+        <ageRate>16+</ageRate>
+      </details>
+      
+      <team>
+        <cast>
+          <castValue>Актер А</castValue>
+          <castValue>Актер Б</castValue>
+        </cast>
+        <dubbingTeam>Команда дубляжа X</dubbingTeam>
+      </team>
+      
+      <rating>7.8</rating>
+    </content>
+    
+    <content>
+      <contentType>series</contentType>
+      <contentId>201</contentId>
+      <title>Индийский океан и я</title>
+      <description>Погрузитесь в веселые приключения на берегу Индийского океана, где дети вместе с местными животными учатся ценить природу и дружбу.</description>
+      <imageUrl>https://otium.imagestorage.ru/IndianOceanAndI.img</imageUrl>
+      <previewUrl>https://otium.previewstorage.ru/IndianOceanAndI.mov</previewUrl>
+      <recordUrl>https://otium.recordstorage.ru/IndianOceanAndI.mov</recordUrl>
+      
+      <genre>
+        <genreValue>kids</genreValue>
+        <genreValue>reality</genreValue>
+      </genre>
+      
+      <recommended>true</recommended>
+      <exclusive>true</exclusive>
+      
+      <details>
+        <yearOfIssue>2015</yearOfIssue>
+        <episodesCount>4</episodesCount>
+        <country>Индонезия</country>
+        <ageRate>6+</ageRate>
+      </details>
+      
+      <language>
+        <original>
+          <originalValue>бахаса</originalValue>
+        </original>
+        <sound>
+          <soundValue>русский</soundValue>
+          <soundValue>английский</soundValue>
+        </sound>
+        <subtitle>
+          <subtitleValue>русский</subtitleValue>
+          <subtitleValue>английский</subtitleValue>
+          <subtitleValue>бахаса</subtitleValue>
+        </subtitle>
+      </language>
+      
+      <rating>9.4</rating>
+      <favorites>true</favorites>
+    </content>
+  </contentList>
+</GetContentListResponse>

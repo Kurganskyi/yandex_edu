@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="ContentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="film"/>
+      <xs:enumeration value="series"/>
+      <xs:enumeration value="all"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="GetContentListResponse">
+    <xs:complexType>
+      <xs:sequence>
+
+        <!-- (Опционально) сводная информация по выдаче -->
+        <xs:element name="total" type="xs:nonNegativeInteger" minOccurs="0"/>
+        <xs:element name="page" type="xs:nonNegativeInteger" minOccurs="0"/>
+        <xs:element name="pageSize" type="xs:nonNegativeInteger" minOccurs="0"/>
+
+        <xs:element name="contentList">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="content" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="contentType" type="ContentType"/>
+                    <xs:element name="contentId" type="xs:integer"/>
+                    <xs:element name="title" type="xs:string"/>
+                    <xs:element name="description" type="xs:string" minOccurs="0"/>
+                    <xs:element name="imageUrl" type="xs:anyURI" minOccurs="0"/>
+                    <xs:element name="previewUrl" type="xs:anyURI" minOccurs="0"/>
+                    <xs:element name="recordUrl" type="xs:anyURI" minOccurs="0"/>
+
+                    <!-- Жанры -->
+                    <xs:element name="genre" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="genreValue" type="xs:string" maxOccurs="unbounded" minOccurs="1"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="recommended" type="xs:boolean" minOccurs="0"/>
+
+                    <!-- Признак эксклюзивности -->
+                    <xs:element name="exclusive" type="xs:boolean"/>
+
+                    <xs:element name="details" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="yearOfIssue" type="xs:gYear" minOccurs="0"/>
+                          <!-- ISO 8601: PT95M, PT1H30M и т.п. -->
+                          <xs:element name="duration" type="xs:duration" minOccurs="0"/>
+
+                          <!-- Страна -->
+                          <xs:element name="country" type="xs:string" minOccurs="0"/>
+
+                          <xs:element name="ageRate" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="team" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="cast" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="castValue" type="xs:string" maxOccurs="unbounded" minOccurs="1"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+
+                          <!-- Команда дубляжа -->
+                          <xs:element name="dubbingTeam" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="rating" type="xs:decimal" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Пример запроса: только эксклюзивные фильмы жанра "Drama", страница 1/20 -->
+<GetContentList>
+  <contentType>film</contentType>
+  <genreValue>Drama</genreValue>
+  <exclusiveOnly>true</exclusiveOnly>
+  <page>1</page>
+  <pageSize>20</pageSize>
+</GetContentList>
