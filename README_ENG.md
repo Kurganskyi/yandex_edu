@@ -96,6 +96,7 @@ yandex_edu/
 | [Task 2. API Extension](./task_2.md) | C4-diagram update, new API design, Swagger YAML documentation. | C4, API Design, Job Stories, Swagger |
 | [Task 3. Testing Program and Methodology](./task_3.md) | Testing, test plan creation, user manual. | Test plan, test cases, PMI |
 | [Task 4. User Filtering and Bulk Assignment Task](./task_4.md) | Current functions analysis, frontend/backend requirements formulation. | DevTools, Swagger, Figma |
+| [Task 5. Exclusive Content Filtering in Otium Streaming Service](./tasks/task_5/README.md) | Architecture analysis, SOAP API study, XSD schema enhancement, sequence diagrams. | UML Sequence Diagram, SOAP API, XML/XSD, systems analysis |
 
 ---
 
