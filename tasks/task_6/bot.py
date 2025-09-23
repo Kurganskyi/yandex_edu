@@ -108,7 +108,7 @@ class TimerManager:
                 return f"{hours}ч {remaining_minutes}м"
 
 
-async def timer_callback(user_id: int, chat_id: int, duration: int):
+async def timer_callback(user_id: int, chat_id: int, duration: int, message: str = ""):
     """
     Асинхронная функция для отсчета времени
     
@@ -116,13 +116,17 @@ async def timer_callback(user_id: int, chat_id: int, duration: int):
         user_id: ID пользователя
         chat_id: ID чата
         duration: Длительность в секундах
+        message: Сообщение для таймера
     """
     try:
         # Ждем указанное время
         await asyncio.sleep(duration)
         
         # Отправляем уведомление
-        await bot.send_message(chat_id, "⏰ Время вышло!")
+        notification_text = "⏰ Время вышло!"
+        if message:
+            notification_text += f"\n📝 {message}"
+        await bot.send_message(chat_id, notification_text)
         logger.info(f"Таймер завершен для пользователя {user_id}")
         
     except Exception as e:
@@ -132,7 +136,7 @@ async def timer_callback(user_id: int, chat_id: int, duration: int):
         active_timers.pop(user_id, None)
 
 
-async def start_timer(user_id: int, chat_id: int, duration: int) -> bool:
+async def start_timer(user_id: int, chat_id: int, duration: int, message: str = "") -> bool:
     """
     Запускает новый таймер для пользователя
     
@@ -151,7 +155,7 @@ async def start_timer(user_id: int, chat_id: int, duration: int) -> bool:
             logger.info(f"Предыдущий таймер отменен для пользователя {user_id}")
         
         # Создаем новую задачу
-        task = asyncio.create_task(timer_callback(user_id, chat_id, duration))
+        task = asyncio.create_task(timer_callback(user_id, chat_id, duration, message))
         active_timers[user_id] = task
         
         logger.info(f"Таймер запущен для пользователя {user_id} на {duration} секунд")
@@ -231,21 +235,22 @@ async def cmd_timer(message: Message):
     # Извлекаем аргументы команды
     args = message.text.split()
     
-    if len(args) != 2:
+    if len(args) < 2:
         await message.answer(
             "❌ Неверный формат команды.\n"
-            "Используйте: /timer <время>\n"
-            "Пример: /timer 10m"
+            "Используйте: /timer <время> [сообщение]\n"
+            "Пример: /timer 10m Напоминание"
         )
         return
     
     time_str = args[1]
+    timer_message = " ".join(args[2:]) if len(args) > 2 else ""
     duration = TimerManager.parse_time(time_str)
     
     if duration is None:
         await message.answer(
             "❌ Неверный формат времени.\n"
-            "Используйте: /timer <время>\n"
+            "Используйте: /timer <время> [сообщение]\n"
             "Примеры: /timer 10m, /timer 30s, /timer 2h\n\n"
             "📋 Поддерживаемые форматы:\n"
             "• s - секунды (1-3600)\n"
@@ -258,12 +263,16 @@ async def cmd_timer(message: Message):
     success = await start_timer(
         user_id=message.from_user.id,
         chat_id=message.chat.id,
-        duration=duration
+        duration=duration,
+        message=timer_message
     )
     
     if success:
         formatted_time = TimerManager.format_time(duration)
-        await message.answer(f"✅ Таймер на {formatted_time} установлен")
+        response = f"✅ Таймер на {formatted_time} установлен"
+        if timer_message:
+            response += f"\n📝 Сообщение: {timer_message}"
+        await message.answer(response)
     else:
         await message.answer("❌ Ошибка при установке таймера. Попробуйте еще раз.")
 
