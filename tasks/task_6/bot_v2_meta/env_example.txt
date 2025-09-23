@@ -1,0 +1,15 @@
+# Пример файла конфигурации для Telegram-бота таймеров
+# Скопируйте этот файл в .env и заполните ваши данные
+
+# Токен Telegram бота (обязательно)
+# Получите у @BotFather в Telegram
+# Пример: TELEGRAM_BOT_TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz-123456789
+TELEGRAM_BOT_TOKEN=YOUR_BOT_TOKEN_HERE
+
+# Уровень логирования (опционально)
+# Возможные значения: DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOG_LEVEL=INFO
+
+# Дополнительные настройки (опционально)
+# MIN_DURATION=1
+# MAX_DURATION=86400
