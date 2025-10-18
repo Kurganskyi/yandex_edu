@@ -65,6 +65,7 @@
 ## Дополнительные материалы
 
 - **Рабочий файл Google Docs:** [task_7 Курганский Рабочий файл](https://docs.google.com/document/d/1UH8ciL9cEjUYuqJD31R6a-GPNdORScmuUM0psp3LsBs/edit?tab=t.0)
+- **Инструкция со скринами:** [Ссылка на инструкцию в Google Docs со скринами]
 
 ## Статистика тестирования (из task_7)
 
