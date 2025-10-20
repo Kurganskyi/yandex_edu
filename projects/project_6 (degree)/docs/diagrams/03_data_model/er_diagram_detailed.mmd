@@ -1,0 +1,292 @@
+# ER-диаграмма Stets Home (детальная с атрибутами)
+
+## Описание
+
+Детальная ER-диаграмма показывает все атрибуты сущностей с типами данных, ограничениями и индексами. Использует Mermaid Class Diagram для детализации.
+
+## Диаграмма
+
+```mermaid
+classDiagram
+    class USER {
+        +int user_id PK, AUTO_INCREMENT
+        +varchar(255) email UK, NOT NULL
+        +varchar(60) password_hash NOT NULL
+        +varchar(100) name NOT NULL
+        +timestamp created_at NOT NULL, DEFAULT CURRENT_TIMESTAMP
+        +timestamp updated_at NOT NULL, DEFAULT CURRENT_TIMESTAMP ON UPDATE
+        --
+        +validate_email()
+        +hash_password()
+    }
+    
+    class HOME {
+        +int home_id PK, AUTO_INCREMENT
+        +varchar(100) name NOT NULL, DEFAULT 'Мой дом'
+        +timestamp created_at NOT NULL, DEFAULT CURRENT_TIMESTAMP
+        --
+        +check_room_limit()
+        +check_device_limit()
+    }
+    
+    class USER_HOME {
+        +int user_home_id PK, AUTO_INCREMENT
+        +int user_id FK, NOT NULL
+        +int home_id FK, NOT NULL
+        +enum('owner', 'member') role NOT NULL, DEFAULT 'member'
+        +timestamp added_at NOT NULL, DEFAULT CURRENT_TIMESTAMP
+        --
+        +UNIQUE(user_id, home_id)
+        +INDEX(home_id)
+    }
+    
+    class ICON {
+        +int icon_id PK, AUTO_INCREMENT
+        +varchar(50) icon_name UK, NOT NULL
+        +varchar(255) icon_url NOT NULL
+        +varchar(30) category NOT NULL
+        --
+        +get_by_category()
+    }
+    
+    class ROOM {
+        +int room_id PK, AUTO_INCREMENT
+        +int home_id FK, NOT NULL
+        +varchar(100) name NOT NULL
+        +enum('living_room', 'bedroom', 'kitchen', 'bathroom', 'hallway', 'corridor', 'other') type NOT NULL, DEFAULT 'other'
+        +int icon_id FK, NOT NULL
+        +timestamp created_at NOT NULL, DEFAULT CURRENT_TIMESTAMP
+        --
+        +INDEX(home_id)
+        +UNIQUE(home_id, name)
+    }
+    
+    class DEVICE_MODEL {
+        +int model_id PK, AUTO_INCREMENT
+        +varchar(100) model_name UK, NOT NULL
+        +enum('bulb', 'socket') device_type NOT NULL
+        +json capabilities NOT NULL
+        +text description NULL
+        --
+        +get_capabilities()
+        +validate_capabilities()
+    }
+    
+    class DEVICE {
+        +int device_id PK, AUTO_INCREMENT
+        +char(12) device_code UK, NOT NULL
+        +int model_id FK, NOT NULL
+        +int home_id FK, NOT NULL
+        +int room_id FK, NULL
+        +varchar(100) custom_name NULL
+        +enum('on', 'off', 'unavailable') status NOT NULL, DEFAULT 'off'
+        +boolean energy_saving_mode NOT NULL, DEFAULT FALSE
+        +timestamp added_at NOT NULL, DEFAULT CURRENT_TIMESTAMP
+        +timestamp last_seen NULL
+        --
+        +INDEX(home_id)
+        +INDEX(room_id)
+        +INDEX(status)
+        +validate_device_code()
+        +update_last_seen()
+    }
+    
+    class SCENARIO {
+        +int scenario_id PK, AUTO_INCREMENT
+        +int home_id FK, NOT NULL
+        +varchar(30) name NOT NULL
+        +timestamp created_at NOT NULL, DEFAULT CURRENT_TIMESTAMP
+        +timestamp updated_at NOT NULL, DEFAULT CURRENT_TIMESTAMP ON UPDATE
+        --
+        +INDEX(home_id)
+        +UNIQUE(home_id, name)
+        +check_name_length()
+    }
+    
+    class SCENARIO_SCHEDULE {
+        +int schedule_id PK, AUTO_INCREMENT
+        +int scenario_id FK, NOT NULL
+        +boolean monday NOT NULL, DEFAULT FALSE
+        +boolean tuesday NOT NULL, DEFAULT FALSE
+        +boolean wednesday NOT NULL, DEFAULT FALSE
+        +boolean thursday NOT NULL, DEFAULT FALSE
+        +boolean friday NOT NULL, DEFAULT FALSE
+        +boolean saturday NOT NULL, DEFAULT FALSE
+        +boolean sunday NOT NULL, DEFAULT FALSE
+        +time start_time NULL
+        +time end_time NULL
+        --
+        +INDEX(scenario_id)
+        +validate_time_range()
+    }
+    
+    class SCENARIO_ACTION {
+        +int action_id PK, AUTO_INCREMENT
+        +int scenario_id FK, NOT NULL
+        +int device_id FK, NOT NULL
+        +enum('turn_on', 'turn_off') action_type NOT NULL
+        +int execution_order NOT NULL, DEFAULT 1
+        --
+        +INDEX(scenario_id)
+        +INDEX(scenario_id, execution_order)
+        +reorder_actions()
+    }
+    
+    %% Связи
+    USER ||--o{ USER_HOME : "имеет доступ к"
+    HOME ||--o{ USER_HOME : "содержит пользователей"
+    HOME ||--o{ ROOM : "содержит"
+    ICON ||--o{ ROOM : "используется в"
+    HOME ||--o{ DEVICE : "содержит"
+    ROOM ||--o{ DEVICE : "содержит"
+    DEVICE_MODEL ||--o{ DEVICE : "является моделью"
+    HOME ||--o{ SCENARIO : "содержит"
+    SCENARIO ||--o{ SCENARIO_SCHEDULE : "имеет расписание"
+    SCENARIO ||--o{ SCENARIO_ACTION : "выполняет действия"
+    DEVICE ||--o{ SCENARIO_ACTION : "участвует в действиях"
+```
+
+## Детальное описание атрибутов
+
+### USER (Пользователь)
+- **user_id**: Первичный ключ, автоинкремент
+- **email**: Уникальный email для входа, валидация формата
+- **password_hash**: Хэш пароля (bcrypt), не хранится в открытом виде
+- **name**: Имя пользователя, минимум 2 символа
+- **created_at**: Дата регистрации, автоматически устанавливается
+- **updated_at**: Дата последнего обновления, автоматически обновляется
+
+### HOME (Дом)
+- **home_id**: Первичный ключ, автоинкремент
+- **name**: Название дома, по умолчанию "Мой дом"
+- **created_at**: Дата создания дома, автоматически устанавливается
+
+### USER_HOME (Связь пользователей и домов)
+- **user_home_id**: Первичный ключ, автоинкремент
+- **user_id**: Внешний ключ на USER, обязательный
+- **home_id**: Внешний ключ на HOME, обязательный
+- **role**: Роль пользователя (owner/member), по умолчанию member
+- **added_at**: Дата добавления к дому, автоматически устанавливается
+- **Ограничения**: UNIQUE(user_id, home_id) - один пользователь в доме только один раз
+
+### ICON (Справочник иконок)
+- **icon_id**: Первичный ключ, автоинкремент
+- **icon_name**: Название иконки, уникальное
+- **icon_url**: URL иконки, валидный URL
+- **category**: Категория иконки (room_type, device_type)
+
+### ROOM (Комната)
+- **room_id**: Первичный ключ, автоинкремент
+- **home_id**: Внешний ключ на HOME, обязательный
+- **name**: Название комнаты, минимум 1 символ
+- **type**: Тип комнаты из предопределенного списка
+- **icon_id**: Внешний ключ на ICON, обязательный
+- **created_at**: Дата создания комнаты, автоматически устанавливается
+- **Ограничения**: UNIQUE(home_id, name) - уникальное название в доме
+
+### DEVICE_MODEL (Справочник моделей устройств)
+- **model_id**: Первичный ключ, автоинкремент
+- **model_name**: Название модели, уникальное
+- **device_type**: Тип устройства (bulb/socket)
+- **capabilities**: Возможности устройства в JSON формате
+- **description**: Описание модели, опционально
+
+### DEVICE (Устройство)
+- **device_id**: Первичный ключ, автоинкремент
+- **device_code**: 12-значный код устройства, уникальный в системе
+- **model_id**: Внешний ключ на DEVICE_MODEL, обязательный
+- **home_id**: Внешний ключ на HOME, обязательный
+- **room_id**: Внешний ключ на ROOM, опциональный (может быть NULL)
+- **custom_name**: Пользовательское название, опционально
+- **status**: Статус устройства (on/off/unavailable)
+- **energy_saving_mode**: Режим энергосбережения, по умолчанию FALSE
+- **added_at**: Дата добавления устройства, автоматически устанавливается
+- **last_seen**: Последний контакт с устройством, обновляется при каждом контакте
+
+### SCENARIO (Сценарий)
+- **scenario_id**: Первичный ключ, автоинкремент
+- **home_id**: Внешний ключ на HOME, обязательный
+- **name**: Название сценария, максимум 30 символов
+- **created_at**: Дата создания сценария, автоматически устанавливается
+- **updated_at**: Дата последнего обновления, автоматически обновляется
+- **Ограничения**: UNIQUE(home_id, name) - уникальное название в доме
+
+### SCENARIO_SCHEDULE (Расписание сценария)
+- **schedule_id**: Первичный ключ, автоинкремент
+- **scenario_id**: Внешний ключ на SCENARIO, обязательный
+- **monday-sunday**: Дни недели для выполнения, boolean
+- **start_time**: Время начала выполнения, формат HH:MM:SS
+- **end_time**: Время окончания выполнения, формат HH:MM:SS
+
+### SCENARIO_ACTION (Действие сценария)
+- **action_id**: Первичный ключ, автоинкремент
+- **scenario_id**: Внешний ключ на SCENARIO, обязательный
+- **device_id**: Внешний ключ на DEVICE, обязательный
+- **action_type**: Тип действия (turn_on/turn_off)
+- **execution_order**: Порядок выполнения, минимум 1
+
+## Индексы для производительности
+
+### Первичные индексы
+- Все таблицы имеют первичный ключ с AUTO_INCREMENT
+
+### Уникальные индексы
+- USER.email
+- USER_HOME(user_id, home_id)
+- ROOM(home_id, name)
+- SCENARIO(home_id, name)
+- DEVICE.device_code
+- ICON.icon_name
+- DEVICE_MODEL.model_name
+
+### Обычные индексы
+- USER_HOME.home_id
+- ROOM.home_id
+- DEVICE.home_id
+- DEVICE.room_id
+- DEVICE.status
+- SCENARIO.home_id
+- SCENARIO_SCHEDULE.scenario_id
+- SCENARIO_ACTION(scenario_id, execution_order)
+
+## Валидации и бизнес-правила
+
+### Валидация email
+- Формат: `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+- Длина: 5-255 символов
+- Уникальность в системе
+
+### Валидация кода устройства
+- Формат: `^[0-9]{12}$`
+- Ровно 12 цифр
+- Уникальность в системе
+
+### Валидация названия сценария
+- Длина: 1-30 символов
+- Уникальность в рамках дома
+
+### Валидация времени
+- Формат: HH:MM:SS (24-часовой формат)
+- Диапазон: 00:00:00 - 23:59:59
+
+### Валидация JSON (capabilities)
+- Валидный JSON формат
+- Обязательные поля зависят от типа устройства
+
+## Ограничения целостности
+
+### Каскадные операции
+- При удалении пользователя: удаляются все его связи с домами
+- При удалении дома: удаляются все комнаты, устройства и сценарии дома
+- При удалении комнаты: устройства остаются без привязки (room_id = NULL)
+- При удалении сценария: удаляются все его расписания и действия
+
+### Проверки ограничений
+- Максимум 10 домов на пользователя
+- Максимум 10 комнат на дом
+- Максимум 100 устройств на дом
+- Максимум 10 сценариев на дом
+
+## Связь с документацией
+
+Эта диаграмма детализирует основную ER-диаграмму и соответствует документу `04_data/data_dictionary.md`.
