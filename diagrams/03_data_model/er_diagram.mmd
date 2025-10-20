@@ -1,0 +1,116 @@
+```mermaid
+erDiagram
+    USER {
+        int user_id PK
+        varchar email UK
+        varchar password_hash
+        varchar name
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    HOME {
+        int home_id PK
+        varchar name
+        varchar description
+        varchar timezone
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    USER_HOME {
+        int user_home_id PK
+        int user_id FK
+        int home_id FK
+        enum role
+        timestamp added_at
+        boolean is_active
+    }
+    
+    ICON {
+        int icon_id PK
+        varchar icon_name UK
+        varchar icon_url
+        varchar category
+        boolean is_active
+    }
+    
+    ROOM {
+        int room_id PK
+        int home_id FK
+        varchar name
+        enum type
+        int icon_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    DEVICE_MODEL {
+        int model_id PK
+        varchar model_name UK
+        enum device_type
+        json capabilities
+        text description
+        varchar manufacturer
+        boolean is_active
+    }
+    
+    DEVICE {
+        int device_id PK
+        char device_code UK
+        int model_id FK
+        int home_id FK
+        int room_id FK
+        varchar custom_name
+        enum status
+        boolean energy_saving_mode
+        timestamp added_at
+        timestamp last_seen
+    }
+    
+    SCENARIO {
+        int scenario_id PK
+        int home_id FK
+        varchar name
+        text description
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    SCENARIO_SCHEDULE {
+        int schedule_id PK
+        int scenario_id FK
+        boolean monday
+        boolean tuesday
+        boolean wednesday
+        boolean thursday
+        boolean friday
+        boolean saturday
+        boolean sunday
+        time start_time
+        time end_time
+    }
+    
+    SCENARIO_ACTION {
+        int action_id PK
+        int scenario_id FK
+        int device_id FK
+        enum action_type
+        json action_params
+        int execution_order
+    }
+    
+    %% Связи
+    USER ||--o{ USER_HOME : "имеет доступ к"
+    HOME ||--o{ USER_HOME : "содержит пользователей"
+    HOME ||--o{ ROOM : "содержит"
+    ICON ||--o{ ROOM : "используется в"
+    HOME ||--o{ DEVICE : "содержит"
+    ROOM ||--o{ DEVICE : "содержит"
+    DEVICE_MODEL ||--o{ DEVICE : "является моделью"
+    HOME ||--o{ SCENARIO : "содержит"
+    SCENARIO ||--o{ SCENARIO_SCHEDULE : "имеет расписание"
+    SCENARIO ||--o{ SCENARIO_ACTION : "выполняет действия"
+    DEVICE ||--o{ SCENARIO_ACTION : "участвует в действиях"
+```
