@@ -57,7 +57,7 @@ erDiagram
     
     DEVICE {
         int device_id PK
-        char device_code UK
+        char(12) device_code UK
         int model_id FK
         int home_id FK
         int room_id FK
