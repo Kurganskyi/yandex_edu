@@ -1,0 +1,152 @@
+<mxfile host="Electron" modified="2024-12-20T00:00:00.000Z" agent="Cursor" etag="system-architecture" version="22.0.0" type="device">
+  <diagram id="System-Architecture" name="System Architecture - Stets Home">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- User Layer -->
+        <mxCell id="User" value="👤 Пользователь&#10;(Mobile App)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#2e7d32;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Mobile App -->
+        <mxCell id="MobileApp" value="📱 Mobile App&#10;React Native" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- API Gateway -->
+        <mxCell id="APIGateway" value="🚪 API Gateway" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#fff3e0;strokeColor=#f57c00;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="320" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Services Layer -->
+        <mxCell id="AuthService" value="🔐 Auth Service" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="80" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="UserService" value="👤 User Service" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="150" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="HomeService" value="🏠 Home Service" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="220" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="DeviceService" value="🔌 Device Service" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="290" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ScenarioService" value="🤖 Scenario Service" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="IoTGateway" value="🌐 IoT Gateway" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="430" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="NotificationService" value="📢 Notification Service" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="500" width="130" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Layer -->
+        <mxCell id="Database" value="🗄️ PostgreSQL&#10;Database" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e0f2f1;strokeColor=#00695c;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="240" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Redis" value="⚡ Redis Cache" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e0f2f1;strokeColor=#00695c;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="320" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- External Systems -->
+        <mxCell id="IoTDevices" value="🏠 Умные устройства&#10;Stets (IoT)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="EmailService" value="📧 Email Service&#10;(External)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="440" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="Conn1" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="User" target="MobileApp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn2" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="MobileApp" target="APIGateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn3" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="AuthService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn4" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="UserService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn5" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="HomeService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn6" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="DeviceService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn7" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="ScenarioService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn8" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="IoTGateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn9" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="APIGateway" target="NotificationService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn10" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="AuthService" target="Database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn11" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="UserService" target="Database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn12" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="HomeService" target="Database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn13" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DeviceService" target="Database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn14" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="ScenarioService" target="Database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn15" value="" style="endArrow=block;html=1;rounded=0;exitX=0;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DeviceService" target="IoTGateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn16" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="IoTGateway" target="IoTDevices">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn17" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="IoTDevices" target="IoTGateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Conn18" value="" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="NotificationService" target="EmailService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="Title" value="Системная архитектура Stets Home (UML Component Diagram)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+

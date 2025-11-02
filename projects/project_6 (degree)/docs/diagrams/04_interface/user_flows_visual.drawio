@@ -1,0 +1,179 @@
+<mxfile host="Electron" modified="2024-12-20T00:00:00.000Z" agent="Cursor" etag="user-flows" version="22.0.0" type="device">
+  <diagram id="User-Flows" name="User Flows - Stets Home">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Flow 1: Registration -->
+        <mxCell id="Start1" value="Первый запуск" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#ffffff;fillColor=#2e7d32;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Splash1" value="Splash Screen" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Onboarding1" value="Onboarding" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Register1" value="Регистрация" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Dashboard1" value="Dashboard (пустой)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="400" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow 2: Add Device -->
+        <mxCell id="Start2" value="Добавление устройства" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#ffffff;fillColor=#2e7d32;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="MethodChoice" value="Выбор метода" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="160" width="150" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="QRScan" value="QR Scanner" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="300" y="280" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ManualInput" value="Ручной ввод" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="480" y="280" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="DeviceAdded" value="Устройство добавлено" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="360" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow 3: Create Scenario -->
+        <mxCell id="Start3" value="Создание сценария" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#ffffff;fillColor=#2e7d32;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="80" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ScenarioList" value="Список сценариев" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="160" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="CreateScenario" value="Создать сценарий" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="240" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ScenarioCreated" value="Сценарий создан" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="320" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow 4: Device Control -->
+        <mxCell id="Start4" value="Управление устройством" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#ffffff;fillColor=#2e7d32;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="600" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Dashboard4" value="Dashboard" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="680" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="DeviceControl4" value="Device Control" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="760" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Success4" value="Команда выполнена" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="840" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow 5: Add Member -->
+        <mxCell id="Start5" value="Добавление члена семьи" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#ffffff;fillColor=#2e7d32;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="600" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ManageMembers" value="Manage Members" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="680" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="InviteSent" value="Приглашение отправлено" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="760" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections Flow 1 -->
+        <mxCell id="C1" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Start1" target="Splash1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C2" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Splash1" target="Onboarding1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C3" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Onboarding1" target="Register1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C4" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Register1" target="Dashboard1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections Flow 2 -->
+        <mxCell id="C5" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Start2" target="MethodChoice">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C6" value="QR" style="endArrow=block;html=1;rounded=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="MethodChoice" target="QRScan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C7" value="Ручной" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="MethodChoice" target="ManualInput">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C8" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="QRScan" target="DeviceAdded">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C9" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="ManualInput" target="DeviceAdded">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections Flow 3 -->
+        <mxCell id="C10" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Start3" target="ScenarioList">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C11" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="ScenarioList" target="CreateScenario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C12" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="CreateScenario" target="ScenarioCreated">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections Flow 4 -->
+        <mxCell id="C13" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Start4" target="Dashboard4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C14" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Dashboard4" target="DeviceControl4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C15" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DeviceControl4" target="Success4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections Flow 5 -->
+        <mxCell id="C16" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="Start5" target="ManageMembers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="C17" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="ManageMembers" target="InviteSent">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="Title" value="User Flows - Критические пользовательские потоки Stets Home" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="800" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
