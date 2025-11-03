@@ -1,5 +1,5 @@
 <mxfile host="Electron" modified="2024-12-20T00:00:00.000Z" agent="Cursor" etag="user-flows" version="22.0.0" type="device">
-  <diagram id="User-Flows" name="User Flows - Stets Home">
+  <diagram id="User-Flows" name="Пользовательские потоки - Stets Home">
     <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -10,11 +10,11 @@
           <mxGeometry x="80" y="80" width="120" height="50" as="geometry" />
         </mxCell>
         
-        <mxCell id="Splash1" value="Splash Screen" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="Splash1" value="Экран загрузки" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="160" width="120" height="50" as="geometry" />
         </mxCell>
         
-        <mxCell id="Onboarding1" value="Onboarding" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="Onboarding1" value="Знакомство с приложением" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="240" width="120" height="50" as="geometry" />
         </mxCell>
         
@@ -22,7 +22,7 @@
           <mxGeometry x="80" y="320" width="120" height="50" as="geometry" />
         </mxCell>
         
-        <mxCell id="Dashboard1" value="Dashboard (пустой)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="Dashboard1" value="Главный экран (пустой)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="400" width="120" height="50" as="geometry" />
         </mxCell>
         
@@ -35,7 +35,7 @@
           <mxGeometry x="400" y="160" width="150" height="80" as="geometry" />
         </mxCell>
         
-        <mxCell id="QRScan" value="QR Scanner" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="QRScan" value="Сканер QR-кода" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="300" y="280" width="120" height="50" as="geometry" />
         </mxCell>
         
@@ -69,11 +69,11 @@
           <mxGeometry x="80" y="600" width="160" height="50" as="geometry" />
         </mxCell>
         
-        <mxCell id="Dashboard4" value="Dashboard" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="Dashboard4" value="Главный экран" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="680" width="120" height="50" as="geometry" />
         </mxCell>
         
-        <mxCell id="DeviceControl4" value="Device Control" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="DeviceControl4" value="Управление устройством" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="760" width="120" height="50" as="geometry" />
         </mxCell>
         
@@ -86,7 +86,7 @@
           <mxGeometry x="400" y="600" width="160" height="50" as="geometry" />
         </mxCell>
         
-        <mxCell id="ManageMembers" value="Manage Members" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="ManageMembers" value="Управление членами семьи" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="400" y="680" width="160" height="50" as="geometry" />
         </mxCell>
         
@@ -168,7 +168,7 @@
         </mxCell>
         
         <!-- Title -->
-        <mxCell id="Title" value="User Flows - Критические пользовательские потоки Stets Home" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" vertex="1" parent="1">
+        <mxCell id="Title" value="Пользовательские потоки - Критические потоки Stets Home" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" vertex="1" parent="1">
           <mxGeometry x="300" y="20" width="800" height="30" as="geometry" />
         </mxCell>
         
