@@ -1,0 +1,189 @@
+<mxfile host="Electron" modified="2024-12-20T00:00:00.000Z" agent="Cursor" etag="er-diagram-smart-home" version="22.0.0" type="device">
+  <diagram id="ER-Diagram" name="ER-диаграмма - Система управления умным домом">
+    <mxGraphModel dx="2000" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Заголовок -->
+        <mxCell id="Title" value="ER-диаграмма - Система управления умным домом (Crow's Foot)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="600" y="20" width="600" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Пользователь -->
+        <mxCell id="USER" value="Пользователь&#10;* Электронная почта PK&#10;Имя пользователя&#10;Пароль пользователя" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="180" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Доступ к дому -->
+        <mxCell id="HOME_ACCESS" value="Доступ к дому&#10;* Электронная почта PK&#10;* Код дома PK&#10;Уровень доступа" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="180" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Код подтверждения -->
+        <mxCell id="CONFIRMATION_CODE" value="Код подтверждения&#10;* Код PK&#10;Тип кода&#10;Электронная почта (новая)&#10;Дата и время создания&#10;Дата и время истечения" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="360" width="180" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- Дом -->
+        <mxCell id="HOME" value="Дом&#10;* Код дома PK&#10;Название дома" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="420" y="220" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Комната -->
+        <mxCell id="ROOM" value="Комната&#10;* Код комнаты PK&#10;* Код дома FK&#10;* Код типа комнаты FK&#10;Название комнаты" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="420" y="360" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Тип комнаты -->
+        <mxCell id="ROOM_TYPE" value="Тип комнаты&#10;* Код типа комнаты PK&#10;Название типа комнаты&#10;Иллюстрация комнаты" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="420" y="520" width="160" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Устройство -->
+        <mxCell id="DEVICE" value="Устройство&#10;* ID устройства PK&#10;* Код модели устройства FK&#10;* Код дома FK&#10;* Код комнаты FK&#10;Название устройства&#10;Статус устройства&#10;Статус режима энергосбережения&#10;Цвет&#10;Яркость" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="980" y="360" width="180" height="180" as="geometry" />
+        </mxCell>
+        
+        <!-- Модель устройства -->
+        <mxCell id="DEVICE_MODEL" value="Модель устройства&#10;* Код модели устройства PK&#10;* Код типа устройства FK" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="280" width="180" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Тип устройства -->
+        <mxCell id="DEVICE_TYPE" value="Тип устройства&#10;* Код типа устройства PK&#10;Тип устройства" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="140" width="180" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Сценарий устройства -->
+        <mxCell id="DEVICE_SCENARIO" value="Сценарий устройства&#10;* Код сценария PK&#10;* ID устройства PK&#10;Статус устройства" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="720" y="600" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Сценарий -->
+        <mxCell id="SCENARIO" value="Сценарий&#10;* Код сценария PK&#10;* Код дома FK&#10;Название сценария&#10;Тип запуска&#10;Время запуска&#10;Статус сценария" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="420" y="680" width="160" height="130" as="geometry" />
+        </mxCell>
+        
+        <!-- День недели в сценарии -->
+        <mxCell id="DAY_OF_WEEK_IN_SCENARIO" value="День недели в сценарии&#10;* Код сценария PK&#10;* Код дня недели PK&#10;* Код дома FK" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="420" y="880" width="160" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- День недели -->
+        <mxCell id="DAY_OF_WEEK" value="День недели&#10;* Код дня недели PK&#10;Название дня недели" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="880" width="160" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Связи -->
+        <!-- Пользователь -> Доступ к дому (1..*) -->
+        <mxCell id="R1" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="USER" target="HOME_ACCESS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Пользователь -> Код подтверждения (1..*) -->
+        <mxCell id="R2" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="USER" target="CONFIRMATION_CODE">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="0" y="125" />
+              <mxPoint x="-60" y="125" />
+              <mxPoint x="-60" y="415" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Доступ к дому -> Дом (*..1) -->
+        <mxCell id="R3" value="" style="endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="HOME_ACCESS" target="HOME">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Дом -> Устройство (1..*) -->
+        <mxCell id="R4" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="HOME" target="DEVICE">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="272" />
+              <mxPoint x="920" y="272" />
+              <mxPoint x="920" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Дом -> Комната (1..*) -->
+        <mxCell id="R5" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="HOME" target="ROOM">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Комната -> Тип комнаты (*..1) -->
+        <mxCell id="R6" value="" style="endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="ROOM" target="ROOM_TYPE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Комната -> Устройство (1..*) -->
+        <mxCell id="R7" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="ROOM" target="DEVICE">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="410" />
+              <mxPoint x="920" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Устройство -> Модель устройства (*..1) -->
+        <mxCell id="R8" value="" style="endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DEVICE" target="DEVICE_MODEL">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="360" />
+              <mxPoint x="1200" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Модель устройства -> Тип устройства (*..1) -->
+        <mxCell id="R9" value="" style="endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DEVICE_MODEL" target="DEVICE_TYPE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Устройство -> Сценарий устройства (1..*) -->
+        <mxCell id="R10" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DEVICE" target="DEVICE_SCENARIO">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1070" y="580" />
+              <mxPoint x="810" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Сценарий устройства -> Сценарий (*..1) -->
+        <mxCell id="R11" value="" style="endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DEVICE_SCENARIO" target="SCENARIO">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="640" />
+              <mxPoint x="640" y="715" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Дом -> Сценарий (1..*) -->
+        <mxCell id="R12" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="HOME" target="SCENARIO">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="290" />
+              <mxPoint x="500" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Сценарий -> День недели в сценарии (1..*) -->
+        <mxCell id="R13" value="" style="endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="SCENARIO" target="DAY_OF_WEEK_IN_SCENARIO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- День недели в сценарии -> День недели (*..1) -->
+        <mxCell id="R14" value="" style="endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1" source="DAY_OF_WEEK_IN_SCENARIO" target="DAY_OF_WEEK">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
