@@ -1,38 +1,38 @@
 <mxfile host="65bd71144e">
     <diagram id="ER-Diagram" name="ER-Diagram - Stets Home">
-        <mxGraphModel dx="1167" dy="1152" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="954" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="USER" value="USER&#10;user_id PK&#10;email UK&#10;password_hash&#10;name&#10;created_at&#10;updated_at" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="100" y="200" width="140" height="130" as="geometry"/>
+                    <mxGeometry x="70" y="30" width="140" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="HOME" value="HOME&#10;home_id PK&#10;name&#10;created_at" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="320" y="200" width="120" height="80" as="geometry"/>
+                    <mxGeometry x="420" y="110" width="120" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="USER_HOME" value="USER_HOME&#10;user_home_id PK&#10;user_id FK&#10;home_id FK&#10;role&#10;added_at" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="220" y="320" width="120" height="100" as="geometry"/>
+                    <mxGeometry x="120" y="240" width="120" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="ICON" value="ICON&#10;icon_id PK&#10;icon_name UK&#10;icon_url&#10;category" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="520" y="200" width="120" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="ROOM" value="ROOM&#10;room_id PK&#10;home_id FK&#10;name&#10;type&#10;icon_id FK&#10;created_at" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="320" y="320" width="140" height="120" as="geometry"/>
+                    <mxGeometry x="340" y="390" width="140" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="DEVICE_MODEL" value="DEVICE_MODEL&#10;model_id PK&#10;model_name UK&#10;device_type&#10;capabilities&#10;description" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="720" y="200" width="150" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="DEVICE" value="DEVICE&#10;device_id PK&#10;device_code UK&#10;model_id FK&#10;home_id FK&#10;room_id FK&#10;custom_name&#10;status&#10;energy_saving_mode&#10;added_at&#10;last_seen" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="520" y="480" width="150" height="180" as="geometry"/>
+                    <mxGeometry x="690" y="600" width="150" height="180" as="geometry"/>
                 </mxCell>
                 <mxCell id="SCENARIO" value="SCENARIO&#10;scenario_id PK&#10;home_id FK&#10;name&#10;created_at&#10;updated_at" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="100" y="500" width="130" height="110" as="geometry"/>
+                    <mxGeometry x="80" y="430" width="130" height="110" as="geometry"/>
                 </mxCell>
                 <mxCell id="SCENARIO_SCHEDULE" value="SCENARIO_SCHEDULE&#10;schedule_id PK&#10;scenario_id FK&#10;monday&#10;tuesday&#10;wednesday&#10;thursday&#10;friday&#10;saturday&#10;sunday&#10;start_time&#10;end_time" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="100" y="640" width="160" height="170" as="geometry"/>
+                    <mxGeometry x="80" y="600" width="160" height="170" as="geometry"/>
                 </mxCell>
                 <mxCell id="SCENARIO_ACTION" value="SCENARIO_ACTION&#10;action_id PK&#10;scenario_id FK&#10;device_id FK&#10;action_type&#10;execution_order" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;align=left;spacingLeft=4;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="320" y="640" width="150" height="120" as="geometry"/>
+                    <mxGeometry x="500" y="660" width="150" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="R1" value="" style="endArrow=none;endFill=0;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeWidth=2;strokeColor=#000000;" parent="1" source="USER" target="USER_HOME" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
