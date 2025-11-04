@@ -1,0 +1,146 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
+  <diagram id="Interface-Structure" name="Структура интерфейса">
+    <mxGraphModel dx="2800" dy="1636" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Title" value="Структура интерфейса - Система управления умным домом" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+          <mxGeometry x="400" y="20" width="800" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Основные разделы по процессам DFD -->
+        <mxCell id="P1" value="1.0&lt;div&gt;&lt;br&gt;Управлять&lt;br&gt;учетной записью&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="80" y="100" width="200" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P1_Screens" value="Экраны:&lt;div&gt;• Регистрация&lt;br&gt;• Вход&lt;br&gt;• Восстановление пароля&lt;br&gt;• Профиль&lt;br&gt;• Изменение email&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=5;spacingTop=5;" parent="1" vertex="1">
+          <mxGeometry x="80" y="210" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P2" value="2.0&lt;div&gt;&lt;br&gt;Подключить&lt;br&gt;устройства&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="320" y="100" width="200" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P2_Screens" value="Экраны:&lt;div&gt;• Добавление устройства&lt;br&gt;• Сканер QR-кода&lt;br&gt;• Ввод кода вручную&lt;br&gt;• Настройка устройства&lt;br&gt;• Привязка к комнате&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=5;spacingTop=5;" parent="1" vertex="1">
+          <mxGeometry x="320" y="210" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P3" value="3.0&lt;div&gt;&lt;br&gt;Управлять&lt;br&gt;устройством&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="560" y="100" width="200" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P3_Screens" value="Экраны:&lt;div&gt;• Управление устройством&lt;br&gt;• Включение/выключение&lt;br&gt;• Режим энергосбережения&lt;br&gt;• Удаление устройства&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=5;spacingTop=5;" parent="1" vertex="1">
+          <mxGeometry x="560" y="210" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P4" value="4.0&lt;div&gt;&lt;br&gt;Управлять&lt;br&gt;домом&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="800" y="100" width="200" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P4_Screens" value="Экраны:&lt;div&gt;• Главный экран (Dashboard)&lt;br&gt;• Список домов&lt;br&gt;• Настройки дома&lt;br&gt;• Управление участниками&lt;br&gt;• Удаление дома&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=5;spacingTop=5;" parent="1" vertex="1">
+          <mxGeometry x="800" y="210" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P5" value="5.0&lt;div&gt;&lt;br&gt;Управлять&lt;br&gt;комнатой&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="1040" y="100" width="200" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P5_Screens" value="Экраны:&lt;div&gt;• Список комнат&lt;br&gt;• Детали комнаты&lt;br&gt;• Создание комнаты&lt;br&gt;• Редактирование комнаты&lt;br&gt;• Удаление комнаты&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=5;spacingTop=5;" parent="1" vertex="1">
+          <mxGeometry x="1040" y="210" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P6" value="6.0&lt;div&gt;&lt;br&gt;Управлять&lt;br&gt;сценарием&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="1280" y="100" width="200" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="P6_Screens" value="Экраны:&lt;div&gt;• Список сценариев&lt;br&gt;• Создание сценария&lt;br&gt;• Настройка расписания&lt;br&gt;• Ручной запуск&lt;br&gt;• Удаление сценария&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=5;spacingTop=5;" parent="1" vertex="1">
+          <mxGeometry x="1280" y="210" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Связи между процессами -->
+        <mxCell id="L1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#666666;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="P1" target="P2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="L2" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#666666;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="P2" target="P3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="L3" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#666666;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="P3" target="P4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="L4" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#666666;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="P4" target="P5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="L5" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#666666;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="P5" target="P6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Главный экран -->
+        <mxCell id="Dashboard" value="Главный экран&lt;div&gt;(Dashboard)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;fillColor=#fff3e0;strokeColor=#f57c00;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="800" y="400" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Связи от Dashboard к процессам -->
+        <mxCell id="D1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#999999;dashed=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Dashboard" target="P1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="D2" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#999999;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Dashboard" target="P2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="D3" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#999999;dashed=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Dashboard" target="P3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="D4" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#f57c00;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Dashboard" target="P4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="D5" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#999999;dashed=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Dashboard" target="P5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="D6" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#999999;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Dashboard" target="P6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Легенда -->
+        <mxCell id="Legend" value="Легенда:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+          <mxGeometry x="80" y="400" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Legend1" value="Процесс DFD" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#e8f5e8;strokeColor=#388e3c;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="80" y="440" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Legend2" value="Экраны раздела" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="80" y="490" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Legend3" value="Главный экран" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#000000;fillColor=#fff3e0;strokeColor=#f57c00;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="80" y="540" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="Legend4" value="Основная связь" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#666666;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="600" as="sourcePoint" />
+            <mxPoint x="220" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="Legend5" value="Доступ из Dashboard" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#999999;dashed=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="640" as="sourcePoint" />
+            <mxPoint x="220" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
