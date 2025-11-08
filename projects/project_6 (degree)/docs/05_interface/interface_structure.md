@@ -12,183 +12,132 @@
 
 ![Диаграмма структуры интерфейса](../diagrams/04_interface/interface_structure_visual.drawio)
 
-**Основные разделы:**
+**Основные разделы, синхронизированные с логической DFD:**
 
-1. **1.0 Управлять учетной записью** - Экран регистрации, входа, восстановления пароля, профиля
-2. **2.0 Подключить устройства** - Экран добавления устройства, сканер QR-кода, настройка устройства
-3. **3.0 Управлять устройством** - Экран управления устройством, включение/выключение, режим энергосбережения
-4. **4.0 Управлять домом** - Главный экран (Dashboard), список домов, настройки дома
-5. **5.0 Управлять комнатой** - Список комнат, детали комнаты, создание/редактирование/удаление комнаты
-6. **6.0 Управлять сценарием** - Список сценариев, создание сценария, настройка расписания, ручной запуск
+1. **1.0 Войти в приложение** — onboarding, регистрация, вход, восстановление пароля, управление профилем.
+2. **2.0 Организовать умный дом** — главный экран, добавление устройства, настройка устройств и комнат, управление составом дома.
+3. **3.0 Управлять умным домом** — управление устройствами, комнатами и автоматизациями (сценарии, расписания).
 
-Главный экран (Dashboard) является центральным узлом навигации и обеспечивает доступ ко всем основным разделам приложения.
+Главный экран (Dashboard) входит во вторую активность и выступает хабом навигации между частями «Организовать» и «Управлять».
 
 ## Sitemap (Навигационная структура)
 
 ### Визуальная диаграмма (детальная)
 ```mermaid
 graph TD
-    %% Главная структура приложения
-    App["🏡 Stets Home App"]
-    
-    %% Splash и Onboarding
-    Splash["📱 Splash Screen<br/>(Загрузочный экран)"]
-    Onboarding["🎯 Onboarding Flow"]
-    Welcome["👋 Welcome Screen"]
-    Features["⭐ Features Overview"]
-    Permissions["🔐 Permission Requests"]
-    
-    %% Authentication Flow
-    Auth["🔑 Authentication Flow"]
-    Login["📝 Login Screen"]
-    Register["📋 Register Screen"]
-    PasswordReset["🔒 Password Reset Screen"]
-    EmailVerify["📧 Email Verification Screen"]
-    
-    %% Home Flow (Основной функционал)
-    HomeFlow["🏠 Home Flow"]
-    HomeSelection["🏘️ Home Selection Screen<br/>(если >1 дома)"]
-    Dashboard["📊 Dashboard<br/>(Главный экран)"]
-    RoomsOverview["🚪 Rooms Overview"]
-    AllDevices["🔌 All Devices View"]
-    QuickActions["⚡ Quick Actions"]
-    
-    %% Room Details
-    RoomDetails["🚪 Room Details Screen"]
-    DevicesInRoom["🔌 Devices in Room"]
-    RoomControls["🎛️ Room Controls"]
-    RoomSettings["⚙️ Room Settings"]
-    
-    %% Device Control
-    DeviceControl["🔌 Device Control Screen"]
-    DeviceStatus["📊 Device Status"]
-    PowerToggle["🔘 Power Toggle"]
-    EnergySaving["💡 Energy Saving Toggle"]
-    DeviceSettings["⚙️ Device Settings"]
-    
-    %% Scenarios
-    Scenarios["🤖 Scenarios Screen"]
-    ScenarioList["📋 Scenario List"]
-    CreateScenario["➕ Create Scenario Screen"]
-    EditScenario["✏️ Edit Scenario Screen"]
-    ScenarioDetails["📄 Scenario Details"]
-    
-    %% Add Device Flow
-    AddDevice["➕ Add Device Flow"]
-    AddDeviceScreen["📱 Add Device Screen"]
-    QRScanner["📷 QR Scanner Screen"]
+    %% Вершина приложения
+    App["🏡 Stets Home"]
+
+    %% Активность 1.0 — Войти в приложение
+    SignInFlow["1.0 Войти в приложение"]
+    Splash["📱 Splash Screen"]
+    Onboarding["🎯 Onboarding"]
+    Auth["🔑 Auth Hub"]
+    Login["📝 Login"]
+    Register["📋 Register"]
+    PasswordReset["🔒 Password Reset"]
+    EmailVerify["📧 Email Verification"]
+    Profile["👤 Profile & Settings"]
+
+    %% Активность 2.0 — Организовать умный дом
+    SetupFlow["2.0 Организовать умный дом"]
+    Dashboard["📊 Dashboard"]
+    HomeSelection["🏘️ Home Selection"]
+    AddDevice["➕ Add Device"]
+    QRScanner["📷 QR Scanner"]
     ManualInput["⌨️ Manual Code Input"]
     DeviceSetup["🔧 Device Setup"]
-    
-    %% Settings Flow
-    Settings["⚙️ Settings Flow"]
-    Profile["👤 Profile Screen"]
-    EditProfile["✏️ Edit Profile"]
-    ChangeEmail["📧 Change Email"]
-    ChangePassword["🔒 Change Password"]
-    
-    %% Home Settings
-    HomeSettings["🏠 Home Settings Screen"]
     ManageRooms["🚪 Manage Rooms"]
+    CreateRoom["➕ Create Room"]
+    EditRoom["✏️ Edit Room"]
+    DeleteRoom["🗑️ Delete Room"]
     ManageMembers["👥 Manage Members"]
-    HomeInfo["ℹ️ Home Information"]
-    DeleteHome["🗑️ Delete Home"]
-    
-    %% App Settings
-    AppSettings["📱 App Settings Screen"]
-    Notifications["🔔 Notifications"]
-    Privacy["🔒 Privacy"]
-    About["ℹ️ About"]
-    
-    %% Error Screens
-    Errors["❌ Error Screens"]
+
+    %% Активность 3.0 — Управлять умным домом
+    ControlFlow["3.0 Управлять умным домом"]
+    RoomsOverview["🚪 Rooms Overview"]
+    RoomDetails["📄 Room Details"]
+    RoomControls["🎛️ Room Controls"]
+    DeviceControl["🔌 Device Control"]
+    PowerToggle["🔘 Power Toggle"]
+    EnergySaving["💡 Energy Saving"]
+    Scenarios["🤖 Scenarios Hub"]
+    ScenarioList["📋 Scenario List"]
+    CreateScenario["➕ Create Scenario"]
+    ScenarioSchedule["🕒 Scenario Schedule"]
+    ManualRun["▶️ Manual Run"]
+
+    %% Общие экраны и ошибки
+    Errors["❌ Error States"]
     NetworkError["🌐 Network Error"]
     DeviceUnavailable["📵 Device Unavailable"]
     GenericError["⚠️ Generic Error"]
-    
-    %% Связи
-    App --> Splash
+
+    %% Связи активностей
+    App --> SignInFlow
+    App --> SetupFlow
+    App --> ControlFlow
+
+    %% Поток 1.0
+    SignInFlow --> Splash
     Splash --> Onboarding
-    Onboarding --> Welcome
-    Onboarding --> Features
-    Onboarding --> Permissions
-    
-    Splash --> Auth
+    Onboarding --> Auth
     Auth --> Login
     Auth --> Register
     Auth --> PasswordReset
     Auth --> EmailVerify
-    
-    Login --> HomeFlow
-    Register --> HomeFlow
-    EmailVerify --> HomeFlow
-    
-    HomeFlow --> HomeSelection
-    HomeFlow --> Dashboard
-    Dashboard --> RoomsOverview
-    Dashboard --> AllDevices
-    Dashboard --> QuickActions
-    
-    Dashboard --> RoomDetails
-    RoomDetails --> DevicesInRoom
-    RoomDetails --> RoomControls
-    RoomDetails --> RoomSettings
-    
-    Dashboard --> DeviceControl
-    RoomDetails --> DeviceControl
-    DeviceControl --> DeviceStatus
-    DeviceControl --> PowerToggle
-    DeviceControl --> EnergySaving
-    DeviceControl --> DeviceSettings
-    
-    Dashboard --> Scenarios
-    Scenarios --> ScenarioList
-    Scenarios --> CreateScenario
-    Scenarios --> EditScenario
-    Scenarios --> ScenarioDetails
-    
+    Auth --> Profile
+    Profile --> SignInFlow
+
+    %% Переход к активности 2.0 после успешного входа
+    Login --> SetupFlow
+    Register --> SetupFlow
+    EmailVerify --> SetupFlow
+
+    %% Поток 2.0
+    SetupFlow --> Dashboard
+    SetupFlow --> HomeSelection
     Dashboard --> AddDevice
-    AddDevice --> AddDeviceScreen
-    AddDeviceScreen --> QRScanner
-    AddDeviceScreen --> ManualInput
+    AddDevice --> QRScanner
+    AddDevice --> ManualInput
     QRScanner --> DeviceSetup
     ManualInput --> DeviceSetup
-    
-    Dashboard --> Settings
-    Settings --> Profile
-    Profile --> EditProfile
-    Profile --> ChangeEmail
-    Profile --> ChangePassword
-    
-    Settings --> HomeSettings
-    HomeSettings --> ManageRooms
-    HomeSettings --> ManageMembers
-    HomeSettings --> HomeInfo
-    HomeSettings --> DeleteHome
-    
-    Settings --> AppSettings
-    AppSettings --> Notifications
-    AppSettings --> Privacy
-    AppSettings --> About
-    
-    %% Error connections
+    Dashboard --> ManageRooms
+    ManageRooms --> CreateRoom
+    ManageRooms --> EditRoom
+    ManageRooms --> DeleteRoom
+    Dashboard --> ManageMembers
+    Dashboard --> ControlFlow
+
+    %% Поток 3.0
+    ControlFlow --> RoomsOverview
+    RoomsOverview --> RoomDetails
+    RoomDetails --> RoomControls
+    RoomControls --> DeviceControl
+    DeviceControl --> PowerToggle
+    DeviceControl --> EnergySaving
+    ControlFlow --> Scenarios
+    Scenarios --> ScenarioList
+    ScenarioList --> CreateScenario
+    CreateScenario --> ScenarioSchedule
+    ScenarioList --> ManualRun
+
+    %% Ошибки
     DeviceControl --> Errors
-    Dashboard --> Errors
+    AddDevice --> Errors
     Errors --> NetworkError
     Errors --> DeviceUnavailable
     Errors --> GenericError
-    
+
     %% Стили
-    classDef mainApp fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
-    classDef auth fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    classDef home fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
-    classDef settings fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef entry fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef setup fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef control fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     classDef error fill:#ffebee,stroke:#d32f2f,stroke-width:2px
-    
-    class App mainApp
-    class Splash,Onboarding,Welcome,Features,Permissions,Auth,Login,Register,PasswordReset,EmailVerify auth
-    class HomeFlow,HomeSelection,Dashboard,RoomsOverview,AllDevices,QuickActions,RoomDetails,DevicesInRoom,RoomControls,RoomSettings,DeviceControl,DeviceStatus,PowerToggle,EnergySaving,DeviceSettings,Scenarios,ScenarioList,CreateScenario,EditScenario,ScenarioDetails,AddDevice,AddDeviceScreen,QRScanner,ManualInput,DeviceSetup home
-    class Settings,Profile,EditProfile,ChangeEmail,ChangePassword,HomeSettings,ManageRooms,ManageMembers,HomeInfo,DeleteHome,AppSettings,Notifications,Privacy,About settings
+
+    class SignInFlow,Splash,Onboarding,Auth,Login,Register,PasswordReset,EmailVerify,Profile entry
+    class SetupFlow,Dashboard,HomeSelection,AddDevice,QRScanner,ManualInput,DeviceSetup,ManageRooms,CreateRoom,EditRoom,DeleteRoom,ManageMembers setup
+    class ControlFlow,RoomsOverview,RoomDetails,RoomControls,DeviceControl,PowerToggle,EnergySaving,Scenarios,ScenarioList,CreateScenario,ScenarioSchedule,ManualRun control
     class Errors,NetworkError,DeviceUnavailable,GenericError error
 ```
 
