@@ -1,0 +1,38 @@
+# Игнорируемые папки
+Agile.homework/
+draw.io/
+
+# Временные файлы
+*.tmp
+*.temp
+*.log
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# IDE файлы
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+
+# Node.js (если используется)
+node_modules/
+npm-debug.log*
+
+# Python (если используется)
+__pycache__/
+*.pyc
+*.pyo
+
+# Другие временные файлы
+*.bak
+*.backup
+
+# Большие видео файлы (GitHub limit 100MB)
+*.mp4
+*.avi
+*.mov
+*.mkv
