@@ -47,8 +47,8 @@
 
 ### Дополнительные функции (не в MVP)
 
-**TR-7:** Выдача доступа к дому (совместный доступ)  
-**TR-7.1:** Принятие приглашения
+**UC-7:** Выдача доступа к дому (совместный доступ)  
+**UC-7.1:** Принятие приглашения
 
 ---
 
@@ -130,19 +130,19 @@
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-001: Регистрация - невалидный email</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Пользователь регистрируется впервые</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить шаги TR-1, указав невалидный email.<br>2. Нажать «Создать аккаунт».</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить шаги US-001, указав невалидный email.<br>2. Нажать «Создать аккаунт».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Поле email подсвечивается красным. Отображается подсказка «Неверный формат электронной почты».</td>
 </tr>
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-001: Регистрация - пароли не совпадают</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Пользователь регистрируется впервые</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить шаги TR-1, указав разные значения пароля.<br>2. Нажать «Создать аккаунт».</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить шаги US-001, указав разные значения пароля.<br>2. Нажать «Создать аккаунт».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Поле «Повторите пароль» подсвечивается красным. Сообщение «Пароли не совпадают».</td>
 </tr>
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-001: Регистрация - невалидный пароль</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Пользователь регистрируется впервые</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить шаги TR-1, указав пароль, не соответствующий требованиям.<br>2. Нажать «Создать аккаунт».</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить шаги US-001, указав пароль, не соответствующий требованиям.<br>2. Нажать «Создать аккаунт».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Поле «Пароль» подсвечивается красным. Сообщение «Пароль не соответствует требованиям».</td>
 </tr>
 <tr>
@@ -172,13 +172,13 @@
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-004: Восстановление пароля - просроченный код</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Код подтверждения старше 5 минут</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить TR-3, введя просроченный код.<br>2. Нажать «Сохранить».<br>3. Нажать «Выслать код ещё раз».</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить US-004, введя просроченный код.<br>2. Нажать «Сохранить».<br>3. Нажать «Выслать код ещё раз».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Код подтверждения устарел». Поле подсвечено красным. Кнопка повторной отправки активна.</td>
 </tr>
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-004: Восстановление пароля - неверный код</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Пользователь получил код</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить TR-3, указав неверный код.<br>2. Нажать «Сохранить».</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить US-004, указав неверный код.<br>2. Нажать «Сохранить».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Введён неверный код». Поле подсвечивается красным. Кнопка повторной отправки активируется через 5 минут.</td>
 </tr>
 <tr>
@@ -229,13 +229,13 @@
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-010: Добавление устройства - QR другого производителя</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Пользователь сканирует чужой QR</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить TR-4, используя сторонний QR-код.</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить US-010, используя сторонний QR-код.</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Устройства других производителей не поддерживаются».</td>
 </tr>
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-010: Добавление устройства - превышение лимита</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">В доме уже 100 устройств</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить TR-4 при заполненном лимите.</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить US-010 при заполненном лимите.</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Достигнут лимит на количество устройств (100)».</td>
 </tr>
 <tr>
@@ -247,7 +247,7 @@
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-012: Предотвращение дубликатов устройств</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Устройство уже добавлено</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить TR-4 для устройства, которое уже в системе.</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить US-010 для устройства, которое уже в системе.</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Устройство уже добавлено».</td>
 </tr>
 <tr>
@@ -310,7 +310,7 @@
 <tr>
 <td style="padding: 8px; border: 1px solid #ddd;"><strong>US-020: Создание сценария с ручным запуском</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">В доме есть устройства</td>
-<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить TR-6, не указывая время и дни.<br>2. Нажать «Сохранить».</td>
+<td style="padding: 8px; border: 1px solid #ddd;">1. Повторить US-018, не указывая время и дни.<br>2. Нажать «Сохранить».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сценарий без расписания сохранён.</td>
 </tr>
 <tr>
@@ -323,13 +323,13 @@
 <td colspan="4" style="background-color: #f0f0f0; font-weight: bold; padding: 8px; border: 1px solid #ddd;"><strong>Дополнительные функции (не в MVP)</strong></td>
 </tr>
 <tr>
-<td style="padding: 8px; border: 1px solid #ddd;"><strong>TR-7: Выдача доступа к дому</strong></td>
+<td style="padding: 8px; border: 1px solid #ddd;"><strong>UC-7: Выдача доступа к дому</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Пользователь авторизован</td>
 <td style="padding: 8px; border: 1px solid #ddd;">1. Настройки → «Совместный доступ».<br>2. Указать имя, email, дом «Текущий».<br>3. Выбрать уровень доступа.<br>4. Нажать «Добавить доступ».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Доступ успешно выдан». Приглашение появляется в списке. На email отправлено письмо.</td>
 </tr>
 <tr>
-<td style="padding: 8px; border: 1px solid #ddd;"><strong>TR-7.1: Принятие приглашения</strong></td>
+<td style="padding: 8px; border: 1px solid #ddd;"><strong>UC-7.1: Принятие приглашения</strong></td>
 <td style="padding: 8px; border: 1px solid #ddd;">Приглашённый пользователь авторизован</td>
 <td style="padding: 8px; border: 1px solid #ddd;">1. На экране «Мой дом» нажать «Принять приглашение».</td>
 <td style="padding: 8px; border: 1px solid #ddd;">Сообщение «Доступ успешно принят». Доступ к дому открыт.</td>
