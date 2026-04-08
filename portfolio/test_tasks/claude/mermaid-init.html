@@ -1,0 +1,53 @@
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  (function () {
+    function upgradeMermaidBlocks() {
+      document.querySelectorAll("pre.mermaid").forEach(function (block, index) {
+        var container = document.createElement("div");
+        container.className = "mermaid";
+        container.setAttribute("data-diagram", String(index + 1));
+        container.textContent = block.textContent.trim();
+        block.replaceWith(container);
+      });
+    }
+
+    function initMermaid() {
+      if (!window.mermaid) {
+        return;
+      }
+
+      upgradeMermaidBlocks();
+
+      window.mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "base",
+        flowchart: {
+          curve: "basis"
+        },
+        themeVariables: {
+          fontFamily: "Manrope, Avenir Next, Segoe UI, sans-serif",
+          primaryColor: "#fbf3e8",
+          primaryTextColor: "#241b18",
+          primaryBorderColor: "#b55233",
+          lineColor: "#7f341e",
+          secondaryColor: "#f3e8db",
+          tertiaryColor: "#fffdf8",
+          clusterBkg: "#fff8ef",
+          clusterBorder: "#c9b19b",
+          edgeLabelBackground: "#fff6ea"
+        }
+      });
+
+      window.mermaid.run({
+        querySelector: ".mermaid"
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initMermaid);
+    } else {
+      initMermaid();
+    }
+  })();
+</script>

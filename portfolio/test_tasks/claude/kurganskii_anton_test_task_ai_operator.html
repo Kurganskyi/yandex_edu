@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Аналитический документ: Логика AI-оператора</title>
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="report.css" />
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <main class="report-shell">
+    <div class="report-actions">
+      <button type="button" class="print-button" onclick="window.print()">
+        Сохранить в PDF
+      </button>
+    </div>
+    <article class="report-paper">
+<section id="аналитический-документ-логика-ai-оператора" class="level1">
+<h1>Аналитический документ: Логика AI-оператора</h1>
+<p><strong>Дата:</strong> 2026-04-08 (rev. 1.2) <strong>Автор:</strong>
+<a
+href="https://hh.ru/resume/c30088a2ff0e0ef8270039ed1f663351417876?from=share_ios">Курганский
+Антон</a></p>
+<hr />
+<section id="0-краткое-резюме" class="level2">
+<h2>0. Краткое резюме</h2>
+<p><strong>Проблема исходного описания:</strong> ТЗ содержит внутренние
+противоречия — система одновременно "передаёт диалог оператору" и
+"продолжает отвечать AI", нет порога уверенности, таймаутов и механизма
+защиты от гонки состояний. В текущем виде реализация неизбежно приведёт
+к дублированию ответов, галлюцинациям AI и деградации клиентского
+опыта.</p>
+<p><strong>Ключевое решение:</strong> AI-оператор — первая линия
+обработки входящих сообщений. Он классифицирует обращение, генерирует
+ответ при достаточной уверенности и блокируется (взаимоисключение на
+уровне диалога) при подключении живого оператора. Оператор видит полный
+контекст работы AI.</p>
+<p><strong>Что входит в MVP:</strong></p>
+<ul>
+<li>Классификатор тем (чувствительная / нечувствительная)</li>
+<li>Генерация ответа по базе знаний с порогом уверенности</li>
+<li>Дебаунсинг, таймауты, заглушка, автоэскалация</li>
+<li>Блокировка AI при подключении оператора (взаимоисключение)</li>
+<li>Кнопка "Позвать оператора" для клиента</li>
+<li>Отображение ответа AI + источника в интерфейсе оператора</li>
+</ul>
+<p><strong>Топ-5 открытых вопросов к PM:</strong></p>
+<ol type="1">
+<li>Какой порог уверенности считается достаточным и кто его
+пересматривает?</li>
+<li>Кто ведёт и обновляет список чувствительных тем?</li>
+<li>Какие конкретные значения таймаутов (заглушка / максимум)?</li>
+<li>Что означает "оператор взял диалог" — открыл вкладку, нажал
+"Принять" или отправил сообщение?</li>
+<li>Что происходит при эскалации в нерабочее время — автоответ или
+только AI без эскалации?</li>
+</ol>
+<hr />
+</section>
+<section id="1-проблема-и-контекст" class="level2">
+<h2>1. Проблема и контекст</h2>
+<section id="что-решает-функция" class="level3">
+<h3>Что решает функция</h3>
+<p>AI-оператор — автоматический агент, отвечающий клиентам вместо живого
+оператора. Цель: снизить нагрузку на поддержку, ускорить время ответа,
+обрабатывать типовые обращения без участия человека.</p>
+</section>
+<section id="почему-нельзя-отдавать-в-разработку-в-текущем-виде"
+class="level3">
+<h3>Почему нельзя отдавать в разработку в текущем виде</h3>
+<ol type="1">
+<li><strong>Конфликт управления диалогом</strong> (п. 4 vs п. 5):
+система одновременно "передаёт диалог оператору" и "продолжает отвечать
+AI".</li>
+<li><strong>Нет порога уверенности</strong> (п. 3 и 6): AI будет
+галлюцинировать на чувствительных темах.</li>
+<li><strong>Нет таймаута на генерацию</strong> (п. 8): "клиент просто
+ждёт" противоречит требованию "не должен долго оставаться без
+ответа".</li>
+<li><strong>Нет механизма недовольства</strong> (п. 9): неясно, что
+триггерит подключение оператора.</li>
+<li><strong>Оператор слеп к логике рассуждений AI</strong> (п. 10): риск
+продолжить некачественный ответ.</li>
+<li><strong>Проблема синхронизации</strong> (п. 7): ответы на каждое
+сообщение по отдельности приведут к дублированию.</li>
+</ol>
+<hr />
+</section>
+</section>
+<section id="2-требования-к-системе" class="level2">
+<h2>2. Требования к системе</h2>
+<section id="21-функциональные-требования" class="level3">
+<h3>2.1 Функциональные требования</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Приоритет</th>
+<th>Требование</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-01</td>
+<td><code>[MUST MVP]</code></td>
+<td>Система определяет<strong>тип обращения</strong> до генерации ответа
+(чувствительная тема / типовой вопрос / нераспознанный).</td>
+</tr>
+<tr>
+<td>FR-02</td>
+<td><code>[MUST MVP]</code></td>
+<td>AI генерирует ответ только если обращение<strong>не относится к
+чувствительным темам</strong>.</td>
+</tr>
+<tr>
+<td>FR-03</td>
+<td><code>[MUST MVP]</code></td>
+<td>AI отправляет ответ клиенту только если<strong>уверенность модели ≥
+CONFIDENCE_THRESHOLD</strong>. Конкретное значение порога —
+<code>[ГИПОТЕЗА]</code>, согласуется с PM и ML-командой после анализа
+распределения скоров.</td>
+</tr>
+<tr>
+<td>FR-04</td>
+<td><code>[MUST MVP]</code></td>
+<td>Если уверенность &lt; порога —<strong>диалог передаётся
+оператору</strong> с черновиком ответа AI и причиной.</td>
+</tr>
+<tr>
+<td>FR-05</td>
+<td><code>[MUST MVP]</code></td>
+<td>Если тема чувствительная —<strong>AI не отвечает</strong>, диалог
+немедленно уходит оператору с пометкой темы.</td>
+</tr>
+<tr>
+<td>FR-06</td>
+<td><code>[MUST MVP]</code></td>
+<td>Как только<strong>оператор взял диалог</strong> — AI
+<strong>прекращает генерацию</strong> по этому диалогу.</td>
+</tr>
+<tr>
+<td>FR-07</td>
+<td><code>[MUST MVP]</code></td>
+<td>При нескольких сообщениях подряд с паузой &lt; DEBOUNCE_TIMEOUT —
+AI<strong>ждёт паузы</strong> и отвечает на агрегированный
+контекст.</td>
+</tr>
+<tr>
+<td>FR-08</td>
+<td><code>[MUST MVP]</code></td>
+<td>Если генерация &gt; TYPING_INDICATOR_TIMEOUT — клиенту
+отправляется<strong>заглушка</strong>: "Мы уже изучаем ваш вопрос,
+ответим через несколько секунд".</td>
+</tr>
+<tr>
+<td>FR-09</td>
+<td><code>[MUST MVP]</code></td>
+<td>Если генерация &gt; MAX_GENERATION_TIMEOUT —
+диалог<strong>автоматически передаётся оператору</strong>.</td>
+</tr>
+<tr>
+<td>FR-10</td>
+<td><code>[MUST MVP]</code></td>
+<td>Клиент может<strong>явно запросить оператора</strong> (кнопка или
+фраза-триггер) — AI останавливается, диалог уходит оператору.</td>
+</tr>
+<tr>
+<td>FR-11</td>
+<td><code>[MUST MVP]</code></td>
+<td>Оператор видит<strong>ответ AI + источник из базы знаний / причину
+передачи</strong>.</td>
+</tr>
+<tr>
+<td>FR-12</td>
+<td><code>[MUST MVP]</code></td>
+<td>Оператор<strong>не дублирует ответ AI</strong>: видит историю и
+продолжает диалог с учётом уже сказанного.</td>
+</tr>
+<tr>
+<td>FR-13</td>
+<td><code>[MUST MVP]</code></td>
+<td>При событии "оператор взял диалог" —<strong>отменить незавершенную
+генерацию</strong>, запретить отправку уже сформированного буфера.
+Диалог блокируется для AI (взаимоисключение на уровне диалога).</td>
+</tr>
+<tr>
+<td>FR-14</td>
+<td><code>[MUST MVP]</code></td>
+<td>При эскалации в нерабочее время (нет операторов в линии) — клиент
+получает<strong>автоответ</strong> с временем следующего ответа; диалог
+сохраняется в очереди. <em>(Конкретная формулировка —
+<code>[ГИПОТЕЗА]</code>, согласуется с PM.)</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="22-нефункциональные-требования" class="level3">
+<h3>2.2 Нефункциональные требования</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Приоритет</th>
+<th>Требование</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-01</td>
+<td><code>[MUST MVP]</code></td>
+<td>Время ответа AI — не более<strong>10 сек</strong> в 95% случаев
+(P95).</td>
+</tr>
+<tr>
+<td>NFR-02</td>
+<td><code>[MUST MVP]</code></td>
+<td>Конкурентная обработка диалогов без взаимного влияния (изолированные
+очереди).</td>
+</tr>
+<tr>
+<td>NFR-03</td>
+<td><code>[MUST MVP]</code></td>
+<td>Все действия AI логируются с меткой времени, ID диалога и
+причиной.</td>
+</tr>
+<tr>
+<td>NFR-04</td>
+<td><code>[ГИПОТЕЗА]</code></td>
+<td>Архитектура позволяет подключить CRM в v2 без переписывания
+ядра.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Явная граница MVP:</strong> AI работает только с базой
+знаний. Персональные данные клиента из CRM недоступны (реализация в
+v2).</p>
+</blockquote>
+<hr />
+</section>
+</section>
+<section id="3-целевая-логика-работы" class="level2">
+<h2>3. Целевая логика работы</h2>
+<section id="31-текстовое-описание" class="level3">
+<h3>3.1 Текстовое описание</h3>
+<ol type="1">
+<li>Клиент отправляет сообщение.</li>
+<li>Система ожидает паузу DEBOUNCE_TIMEOUT — если клиент продолжает
+набирать, ждёт окончания.</li>
+<li>Классификация обращения:
+<ul>
+<li><strong>Чувствительная тема</strong> → немедленно оператору с
+пометкой; AI не отвечает.</li>
+<li><strong>Обычный вопрос</strong> → AI начинает генерацию.</li>
+</ul></li>
+<li>Если генерация &gt; TYPING_INDICATOR_TIMEOUT → клиенту отправляется
+заглушка.</li>
+<li>Если генерация &gt; MAX_GENERATION_TIMEOUT → оператору; AI
+останавливается.</li>
+<li>Оценка уверенности:
+<ul>
+<li><strong>≥ порога</strong> → ответ клиенту; оператор видит ответ +
+источник.</li>
+<li><strong>&lt; порога</strong> → оператору с черновиком.</li>
+</ul></li>
+<li>Если <strong>оператор взял диалог</strong> — немедленное
+взаимоисключение: незавершенная генерация отменяется, AI
+блокируется.</li>
+<li>Клиент может в любой момент нажать "Позвать оператора" → AI
+останавливается.</li>
+<li>При эскалации без операторов в линии → автоответ клиенту, диалог в
+очередь.</li>
+</ol>
+</section>
+<section id="32-компактная-схема-состояний-mermaid" class="level3">
+<h3>3.2 Компактная схема состояний (Mermaid)</h3>
+<p>Подробная визуальная схема потока приведена в <strong>Приложении
+Б</strong>.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+
+    state &quot;Debounce&quot; as DEBOUNCING
+    state &quot;Classify&quot; as CLASSIFYING
+    state &quot;Generate&quot; as AI_GENERATING
+    state &quot;Waiting&quot; as AI_WAITING
+    state &quot;AI active&quot; as AI_ACTIVE
+    state &quot;Queue operator&quot; as OPERATOR_PENDING
+    state &quot;Live operator&quot; as OPERATOR_ACTIVE
+
+    [*] --&gt; DEBOUNCING : new_msg
+
+    DEBOUNCING --&gt; DEBOUNCING : msg_in_pause
+    DEBOUNCING --&gt; CLASSIFYING : pause_done
+
+    CLASSIFYING --&gt; OPERATOR_PENDING : sensitive
+    CLASSIFYING --&gt; AI_GENERATING : normal
+
+    AI_GENERATING --&gt; AI_WAITING : typing_timeout
+    AI_GENERATING --&gt; AI_ACTIVE : high_conf
+    AI_GENERATING --&gt; OPERATOR_PENDING : low_conf / max_timeout
+    AI_GENERATING --&gt; OPERATOR_ACTIVE : operator_taken
+
+    AI_WAITING --&gt; AI_ACTIVE : high_conf
+    AI_WAITING --&gt; OPERATOR_PENDING : max_timeout
+    AI_WAITING --&gt; OPERATOR_ACTIVE : operator_taken
+
+    AI_ACTIVE --&gt; DEBOUNCING : new_msg
+    AI_ACTIVE --&gt; OPERATOR_ACTIVE : ask_operator
+    AI_ACTIVE --&gt; OPERATOR_ACTIVE : operator_taken
+
+    OPERATOR_PENDING --&gt; OPERATOR_ACTIVE : operator_taken
+    OPERATOR_PENDING --&gt; OPERATOR_PENDING : no_operators
+
+    OPERATOR_ACTIVE --&gt; [*] : closed</code></pre>
+</section>
+<section id="33-таблица-состояний-и-допустимых-переходов"
+class="level3">
+<h3>3.3 Таблица состояний и допустимых переходов</h3>
+<table>
+<thead>
+<tr>
+<th>Состояние</th>
+<th>Переход в</th>
+<th>Условие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[*]</code> / <code>AI_ACTIVE</code></td>
+<td><code>DEBOUNCING</code></td>
+<td>получено сообщение клиента</td>
+</tr>
+<tr>
+<td><code>DEBOUNCING</code></td>
+<td><code>DEBOUNCING</code></td>
+<td>новое сообщение в пределах DEBOUNCE_TIMEOUT</td>
+</tr>
+<tr>
+<td><code>DEBOUNCING</code></td>
+<td><code>CLASSIFYING</code></td>
+<td>пауза ≥ DEBOUNCE_TIMEOUT</td>
+</tr>
+<tr>
+<td><code>CLASSIFYING</code></td>
+<td><code>OPERATOR_PENDING</code></td>
+<td>тема = чувствительная</td>
+</tr>
+<tr>
+<td><code>CLASSIFYING</code></td>
+<td><code>AI_GENERATING</code></td>
+<td>тема = обычная / нераспознанная</td>
+</tr>
+<tr>
+<td><code>AI_GENERATING</code></td>
+<td><code>AI_WAITING</code></td>
+<td>генерация &gt; TYPING_INDICATOR_TIMEOUT</td>
+</tr>
+<tr>
+<td><code>AI_GENERATING</code></td>
+<td><code>OPERATOR_PENDING</code></td>
+<td>генерация &gt; MAX_GENERATION_TIMEOUT ИЛИ уверенность &lt;
+порога</td>
+</tr>
+<tr>
+<td><code>AI_GENERATING</code></td>
+<td><code>AI_ACTIVE</code></td>
+<td>уверенность ≥ порога, ответ отправлен</td>
+</tr>
+<tr>
+<td><code>AI_GENERATING</code></td>
+<td><code>OPERATOR_ACTIVE</code></td>
+<td>оператор взял диалог (взаимоисключение → генерация отменена)</td>
+</tr>
+<tr>
+<td><code>AI_WAITING</code></td>
+<td><code>OPERATOR_PENDING</code></td>
+<td>генерация &gt; MAX_GENERATION_TIMEOUT</td>
+</tr>
+<tr>
+<td><code>AI_WAITING</code></td>
+<td><code>AI_ACTIVE</code></td>
+<td>уверенность ≥ порога, ответ отправлен</td>
+</tr>
+<tr>
+<td><code>AI_WAITING</code></td>
+<td><code>OPERATOR_ACTIVE</code></td>
+<td>оператор взял диалог (взаимоисключение → генерация отменена)</td>
+</tr>
+<tr>
+<td><code>AI_ACTIVE</code></td>
+<td><code>DEBOUNCING</code></td>
+<td>новое сообщение клиента</td>
+</tr>
+<tr>
+<td><code>AI_ACTIVE</code></td>
+<td><code>OPERATOR_ACTIVE</code></td>
+<td>клиент нажал "Позвать оператора" ИЛИ оператор взял диалог</td>
+</tr>
+<tr>
+<td><code>OPERATOR_PENDING</code></td>
+<td><code>OPERATOR_ACTIVE</code></td>
+<td>оператор взял диалог</td>
+</tr>
+<tr>
+<td><code>OPERATOR_PENDING</code></td>
+<td><code>OPERATOR_PENDING</code></td>
+<td>нет операторов → автоответ клиенту</td>
+</tr>
+<tr>
+<td><code>OPERATOR_ACTIVE</code></td>
+<td><code>[*]</code></td>
+<td>оператор закрыл диалог</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="34-что-ai-обрабатывает--не-обрабатывает" class="level3">
+<h3>3.4 Что AI обрабатывает / не обрабатывает</h3>
+<table>
+<thead>
+<tr>
+<th>Тип обращения</th>
+<th>AI отвечает?</th>
+<th>Комментарий</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FAQ, типовые вопросы по продукту</td>
+<td>Да</td>
+<td>При уверенности ≥ порога</td>
+</tr>
+<tr>
+<td>Вопросы по статусу заказа / аккаунту</td>
+<td>Нет (v2)</td>
+<td>Требует CRM; в MVP недоступно</td>
+</tr>
+<tr>
+<td>Медицинские, юридические темы</td>
+<td>Нет</td>
+<td>Всегда к оператору</td>
+</tr>
+<tr>
+<td>Жалобы и претензии</td>
+<td>Нет</td>
+<td>Высокий риск, к оператору</td>
+</tr>
+<tr>
+<td>Запрос на возврат средств</td>
+<td>Нет</td>
+<td>Требует авторизации действий</td>
+</tr>
+<tr>
+<td>Нецензурная лексика / агрессия</td>
+<td>Нет</td>
+<td>Отдельный сценарий</td>
+</tr>
+<tr>
+<td>Технические вопросы без ответа в базе</td>
+<td>Нет</td>
+<td>Низкая уверенность → к оператору</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</section>
+</section>
+<section id="4-вопросы-к-product-manager--стейкхолдерам" class="level2">
+<h2>4. Вопросы к Product Manager / стейкхолдерам</h2>
+<section id="обязательно-до-старта-разработки" class="level3">
+<h3>Обязательно до старта разработки</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Тема</th>
+<th>Вопрос</th>
+<th>Рабочая гипотеза</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>Порог уверенности</td>
+<td>Какое минимальное значение достаточно? Кто устанавливает и
+пересматривает?</td>
+<td><code>[ГИПОТЕЗА]</code> 0.75; пересмотр по результатам пилота</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Чувствительные темы</td>
+<td>Кто ведёт список? Как добавляется новая тема?</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>Таймауты</td>
+<td>Значения TYPING_INDICATOR_TIMEOUT и MAX_GENERATION_TIMEOUT?</td>
+<td><code>[ГИПОТЕЗА]</code> 5 сек и 15 сек</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>Дебаунс</td>
+<td>Через сколько секунд считать паузу? Максимум сообщений в
+очереди?</td>
+<td><code>[ГИПОТЕЗА]</code> 2–3 сек</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>"Взял диалог"</td>
+<td>Оператор открыл вкладку / нажал "Принять" / отправил первое
+сообщение?</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>Механизм недовольства</td>
+<td>Кнопка оценки? Триггерная фраза? Повторный вопрос?</td>
+<td><code>[ГИПОТЕЗА]</code> Считать "недовольством" негативный сентимент
+в следующем сообщении ИЛИ нажатие 👎 — прошу подтвердить</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>Нерабочее время</td>
+<td>Что получает клиент при эскалации ночью / в выходные? Автоответ?
+Только AI без эскалации?</td>
+<td><code>[ГИПОТЕЗА]</code> Автоответ "ответим в рабочее время" + диалог
+в очередь</td>
+</tr>
+<tr>
+<td>Q8</td>
+<td>Оператор и интерфейс</td>
+<td>Нужна ли подсказка "Последний ответ дал AI"? Как оператор продолжает
+без повторения сказанного ботом?</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Q9</td>
+<td>SLA оператора</td>
+<td>Есть ли максимальное время ответа после получения диалога? Что при
+превышении?</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Q10</td>
+<td>Аналитика</td>
+<td>Какие метрики с первого дня?</td>
+<td>% передач, P95 времени, точность</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="юридические-требования-и-приватность-pm--комплаенс"
+class="level3">
+<h3>Юридические требования и приватность (PM + комплаенс)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Вопрос</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q11</td>
+<td>Срок хранения логов AI-диалогов, кто имеет доступ?</td>
+</tr>
+<tr>
+<td>Q12</td>
+<td>Маскирование ПДн в логах (ФИО, телефон, email в текстах
+сообщений)?</td>
+</tr>
+<tr>
+<td>Q13</td>
+<td>Кто имеет доступ к "обоснованию" ответа AI (источник, скор
+уверенности)?</td>
+</tr>
+<tr>
+<td>Q14</td>
+<td>Необходимо ли согласование формулировок заглушек и автоответов с
+юридическим отделом?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</section>
+</section>
+<section id="5-задача-для-разработки-mvp" class="level2">
+<h2>5. Задача для разработки: MVP</h2>
+<section id="название" class="level3">
+<h3>Название</h3>
+<p><strong>[FEAT] AI-оператор: автоматические ответы в чате с
+управляемой передачей оператору — MVP</strong></p>
+</section>
+<section id="проблема--цель" class="level3">
+<h3>Проблема / Цель</h3>
+<p>Операторы перегружены типовыми обращениями. Клиенты ждут дольше
+допустимого. Необходим автоматический агент, снимающий нагрузку без
+ошибок на чувствительных темах и без дублирования работы живых
+операторов.</p>
+</section>
+<section id="объем-mvp" class="level3">
+<h3>Объем MVP</h3>
+<table>
+<thead>
+<tr>
+<th>Компонент</th>
+<th>Приоритет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Классификатор тем (чувствительная / нечувствительная)</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Генерация ответа по базе знаний</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Оценка уверенности и логика порога</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Дебаунсинг входящих сообщений</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Заглушка при долгой генерации</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Автопередача оператору при таймауте и низкой уверенности</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Взаимоисключение: блокировка AI при подключении оператора
+(FR-13)</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Кнопка "Позвать оператора" для клиента</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Отображение ответа AI + источника в интерфейсе оператора</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Автоответ при эскалации в нерабочее время</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Базовое логирование действий AI</td>
+<td><code>[MUST MVP]</code></td>
+</tr>
+<tr>
+<td>Настройка порогов через интерфейс</td>
+<td><code>[ГИПОТЕЗА]</code> → v1.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не входит в объем (MVP):</strong> интеграция с CRM,
+мультиканальность, автозакрытие диалога, дообучение модели,
+A/B-тестирование порогов, аналитический дашборд.</p>
+</section>
+<section id="метрики-успеха-mvp" class="level3">
+<h3>Метрики успеха MVP</h3>
+<table>
+<thead>
+<tr>
+<th>Метрика</th>
+<th>Описание</th>
+<th>Целевое значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Доля автоматически закрытых диалогов</td>
+<td>% диалогов без участия оператора</td>
+<td>Базовый прогноз после 2 нед. пилота</td>
+</tr>
+<tr>
+<td>Доля эскалаций</td>
+<td>% диалогов, переданных оператору (любая причина)</td>
+<td>Базовый прогноз после пилота</td>
+</tr>
+<tr>
+<td>P95 времени ответа AI</td>
+<td>95-й перцентиль времени от сообщения до ответа</td>
+<td>≤ 10 сек</td>
+</tr>
+<tr>
+<td>Доля ошибочных ответов по чувствительным темам</td>
+<td>AI ответил там, где должен был передать оператору</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Среднее время первого ответа оператора после эскалации</td>
+<td>После передачи диалога</td>
+<td>Определяется по базовым данным</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Цели по снижению нагрузки и росту автоматизации —
+<strong>гипотеза</strong>, требует базового прогноза по историческим
+данным. Фиксируются как ориентиры по итогам пилота.</p>
+</blockquote>
+</section>
+<section id="ключевые-параметры" class="level3">
+<h3>Ключевые параметры</h3>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+<th>Значение по умолчанию</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DEBOUNCE_TIMEOUT</code></td>
+<td>Пауза перед обработкой</td>
+<td>2–3 сек<code>[ГИПОТЕЗА]</code></td>
+</tr>
+<tr>
+<td><code>CONFIDENCE_THRESHOLD</code></td>
+<td>Минимальная уверенность AI</td>
+<td>0.75<code>[ГИПОТЕЗА]</code></td>
+</tr>
+<tr>
+<td><code>TYPING_INDICATOR_TIMEOUT</code></td>
+<td>Таймаут до заглушки</td>
+<td>5 сек<code>[ГИПОТЕЗА]</code></td>
+</tr>
+<tr>
+<td><code>MAX_GENERATION_TIMEOUT</code></td>
+<td>Максимум генерации</td>
+<td>15 сек<code>[ГИПОТЕЗА]</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="критерии-приёмки" class="level3">
+<h3>Критерии приёмки</h3>
+<table>
+<thead>
+<tr>
+<th>AC-ID</th>
+<th>Условие</th>
+<th>Ожидаемый результат</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC-01</td>
+<td>Клиент отправил сообщение по чувствительной теме</td>
+<td>AI не отвечает; диалог передаётся оператору с пометкой темы</td>
+</tr>
+<tr>
+<td>AC-02</td>
+<td>AI сформировал ответ с уверенностью &lt; CONFIDENCE_THRESHOLD</td>
+<td>Ответ не отправляется; диалог уходит оператору с черновиком и
+причиной</td>
+</tr>
+<tr>
+<td>AC-03</td>
+<td>Клиент отправил 3 сообщения с паузами &lt; DEBOUNCE_TIMEOUT</td>
+<td>Система ждёт; AI отвечает один раз на агрегированный контекст</td>
+</tr>
+<tr>
+<td>AC-04</td>
+<td>Генерация занимает &gt; TYPING_INDICATOR_TIMEOUT</td>
+<td>Клиент получает сообщение-заглушку</td>
+</tr>
+<tr>
+<td>AC-05</td>
+<td>Генерация занимает &gt; MAX_GENERATION_TIMEOUT</td>
+<td>Диалог автоматически передаётся оператору; AI останавливается</td>
+</tr>
+<tr>
+<td>AC-06</td>
+<td>Оператор нажал "Принять" или отправил первое сообщение</td>
+<td>AI немедленно прекращает генерацию (взаимоисключение); новые ответы
+AI в этом диалоге не отправляются</td>
+</tr>
+<tr>
+<td>AC-07</td>
+<td>Клиент нажал "Позвать оператора"</td>
+<td>AI останавливается; диалог передаётся оператору</td>
+</tr>
+<tr>
+<td>AC-08</td>
+<td>AI отправил ответ клиенту</td>
+<td>Оператор видит ответ AI + источник из базы знаний в своём
+интерфейсе</td>
+</tr>
+<tr>
+<td>AC-09</td>
+<td>Любое действие AI (генерация, передача, таймаут)</td>
+<td>Событие записывается в лог с меткой времени и ID диалога</td>
+</tr>
+<tr>
+<td>AC-10</td>
+<td>Система обрабатывает стандартный трафик</td>
+<td>P95 времени от сообщения клиента до ответа AI ≤ 10 сек</td>
+</tr>
+<tr>
+<td>AC-11*(негативный)*</td>
+<td>Клиент отправил новое сообщение<strong>во время генерации</strong>
+ответа AI</td>
+<td>Текущая генерация отменяется; запускается новый дебаунс с полным
+контекстом</td>
+</tr>
+<tr>
+<td>AC-12*(негативный)*</td>
+<td>Оператор открыл чат<strong>после</strong> ответа AI и написал
+продолжение</td>
+<td>AI не генерирует; оператор видит историю с ответом AI и продолжает
+диалог без повторения</td>
+</tr>
+<tr>
+<td>AC-13*(негативный)*</td>
+<td>Инициирована эскалация, операторов нет в линии</td>
+<td>Клиент получает автоответ с временем следующего ответа; диалог
+сохраняется в очереди</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="трассировка-fr--ac" class="level3">
+<h3>Трассировка FR → AC</h3>
+<table>
+<thead>
+<tr>
+<th>FR-ID</th>
+<th>AC-ID</th>
+<th>Краткое описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-01, FR-02, FR-05</td>
+<td>AC-01</td>
+<td>Чувствительная тема → немедленно оператору</td>
+</tr>
+<tr>
+<td>FR-03, FR-04</td>
+<td>AC-02</td>
+<td>Низкая уверенность → оператору с черновиком</td>
+</tr>
+<tr>
+<td>FR-07</td>
+<td>AC-03, AC-11</td>
+<td>Дебаунсинг: агрегация сообщений и отмена генерации</td>
+</tr>
+<tr>
+<td>FR-08</td>
+<td>AC-04</td>
+<td>Заглушка при долгой генерации</td>
+</tr>
+<tr>
+<td>FR-09</td>
+<td>AC-05</td>
+<td>MAX_TIMEOUT → автоэскалация</td>
+</tr>
+<tr>
+<td>FR-06, FR-13</td>
+<td>AC-06, AC-12</td>
+<td>Взаимоисключение: оператор взял → AI заблокирован</td>
+</tr>
+<tr>
+<td>FR-10</td>
+<td>AC-07</td>
+<td>Кнопка "Позвать оператора"</td>
+</tr>
+<tr>
+<td>FR-11, FR-12</td>
+<td>AC-08, AC-12</td>
+<td>Оператор видит историю AI</td>
+</tr>
+<tr>
+<td>NFR-03</td>
+<td>AC-09</td>
+<td>Логирование всех действий AI</td>
+</tr>
+<tr>
+<td>NFR-01</td>
+<td>AC-10</td>
+<td>P95 ≤ 10 сек</td>
+</tr>
+<tr>
+<td>FR-14</td>
+<td>AC-13</td>
+<td>Нерабочее время — автоответ + очередь</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="зависимости-и-риски" class="level3">
+<h3>Зависимости и риски</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Тема</th>
+<th>Описание</th>
+<th>Ответственный</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>Список чувствительных тем</td>
+<td>Без него невозможен классификатор</td>
+<td>PM</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Значения таймаутов</td>
+<td>Не согласованы; влияют на пользовательский опыт</td>
+<td>PM + техлид</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>"Взял диалог"</td>
+<td>Не определено событие-триггер взаимоисключение</td>
+<td>PM + фронтенд</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>Механизм недовольства</td>
+<td>Рабочая гипотеза: негативный сентимент ИЛИ 👎</td>
+<td>PM</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>База знаний</td>
+<td>Качество ответов AI прямо зависит от полноты базы</td>
+<td>Content-команда</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>ML confidence score</td>
+<td>FR-03 предполагает калиброванный скор от модели. Если скор
+недоступен — запасной вариант: только RAG + порог релевантности
+чанков</td>
+<td>ML-команда</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>Галлюцинации AI</td>
+<td>При низком пороге AI отвечает неточно</td>
+<td>A/B после MVP</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Перегрузка операторов</td>
+<td>При высоком пороге все диалоги уйдут к людям</td>
+<td>Мониторинг с первого дня</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Состояние гонки</td>
+<td>Закрыт FR-13 (взаимоисключение); требует ревью техлида</td>
+<td>техлид</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section
+id="изменения-в-рабочем-процессе-оператора-управление-изменениями"
+class="level3">
+<h3>Изменения в рабочем процессе оператора (Управление изменениями)</h3>
+<p>При внедрении AI-оператора рабочий процесс операторов изменится. До
+старта разработки необходимо уточнить с PM:</p>
+<ul>
+<li>Нужно ли обучение операторов новому интерфейсу?</li>
+<li>Как оператор понимает, что диалог уже обработан AI (явная метка в
+интерфейсе)?</li>
+<li>Нужна ли подсказка: <em>"Последний ответ клиенту дал AI"</em>?</li>
+<li>Как оператор продолжает диалог без повторения сказанного ботом?</li>
+</ul>
+<hr />
+</section>
+</section>
+<section id="приложение-a-предложение-по-этапам-развития"
+class="level2">
+<h2>Приложение A: Предложение по этапам развития</h2>
+<blockquote>
+<p>Цифры по снижению нагрузки — <strong>гипотезы</strong>, подлежат
+подтверждению на пилоте по историческим данным.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Содержание</th>
+<th>Ожидаемый эффект</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MVP</strong></td>
+<td>Классификатор тем, генерация по базе знаний, порог уверенности,
+передача оператору, взаимоисключение</td>
+<td>Базовая автоматизация; замер реального снижения нагрузки</td>
+</tr>
+<tr>
+<td><strong>v1.1</strong></td>
+<td>Кнопка оценки ответа AI клиентом, базовый аналитический дашборд,
+настройка порогов через интерфейс</td>
+<td>Измерение качества; инструмент обратной связи для операторов</td>
+</tr>
+<tr>
+<td><strong>v2.0</strong></td>
+<td>Интеграция с CRM, персонализированные ответы, A/B-тесты порогов</td>
+<td>Рост автоматизации; сокращение времени ответа</td>
+</tr>
+<tr>
+<td><strong>v3.0</strong></td>
+<td>Дообучение модели на исторических диалогах, мультиканальность</td>
+<td>Умный оператор с памятью контекста клиента</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</section>
+<section id="приложение-б-визуальная-схема-потока" class="level2">
+<h2>Приложение Б: Визуальная схема потока</h2>
+<pre class="mermaid"><code>flowchart TD
+    A[Новое сообщение] --&gt; B[Дебаунс]
+    B --&gt; C{Пауза завершена?}
+    C -- Нет --&gt; B
+    C -- Да --&gt; D{Тема чувствительная?}
+
+    D -- Да --&gt; O[Передать оператору]
+    D -- Нет --&gt; E[Генерация AI]
+
+    E --&gt; F{Дольше TYPING timeout?}
+    F -- Да --&gt; G[Заглушка клиенту]
+    F -- Нет --&gt; J{Превышен MAX timeout?}
+    G --&gt; J
+    J -- Да --&gt; O
+    J -- Нет --&gt; H{Уверенность &gt;= порога?}
+
+    H -- Да --&gt; I[Ответ клиенту]
+    H -- Нет --&gt; O
+
+    I --&gt; K{Новое сообщение или&lt;br/&gt;вызов оператора?}
+    K -- Новое сообщение --&gt; B
+    K -- Позвать оператора --&gt; P[Оператор ведет диалог]
+
+    O --&gt; L{Оператор в линии?}
+    L -- Да --&gt; P
+    L -- Нет --&gt; M[Автоответ и очередь]
+
+    E -- Оператор взял диалог --&gt; P</code></pre>
+</section>
+</section>
+    </article>
+  </main>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  (function () {
+    function upgradeMermaidBlocks() {
+      document.querySelectorAll("pre.mermaid").forEach(function (block, index) {
+        var container = document.createElement("div");
+        container.className = "mermaid";
+        container.setAttribute("data-diagram", String(index + 1));
+        container.textContent = block.textContent.trim();
+        block.replaceWith(container);
+      });
+    }
+
+    function initMermaid() {
+      if (!window.mermaid) {
+        return;
+      }
+
+      upgradeMermaidBlocks();
+
+      window.mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "base",
+        flowchart: {
+          curve: "basis"
+        },
+        themeVariables: {
+          fontFamily: "Manrope, Avenir Next, Segoe UI, sans-serif",
+          primaryColor: "#fbf3e8",
+          primaryTextColor: "#241b18",
+          primaryBorderColor: "#b55233",
+          lineColor: "#7f341e",
+          secondaryColor: "#f3e8db",
+          tertiaryColor: "#fffdf8",
+          clusterBkg: "#fff8ef",
+          clusterBorder: "#c9b19b",
+          edgeLabelBackground: "#fff6ea"
+        }
+      });
+
+      window.mermaid.run({
+        querySelector: ".mermaid"
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initMermaid);
+    } else {
+      initMermaid();
+    }
+  })();
+</script>
+</body>
+</html>
