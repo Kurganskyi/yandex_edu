@@ -493,6 +493,22 @@ blockquote {
     border-radius: 14px;
   }
 
+  section#приложение-б-визуальная-схема-потока {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  section#приложение-б-визуальная-схема-потока h2 {
+    break-after: auto;
+    page-break-after: auto;
+    margin-bottom: 8px;
+  }
+
+  section#приложение-б-визуальная-схема-потока .mermaid {
+    margin-top: 0;
+    padding: 8px;
+  }
+
   a {
     color: inherit;
     text-decoration-color: rgba(36, 27, 24, 0.35);
