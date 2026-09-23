@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Ассессмент 2026 — Антон Курганский</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0b1220;
+        color: #f8fafc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        background:
+          radial-gradient(circle at 50% 15%, rgba(38, 119, 234, 0.18), transparent 38%),
+          #0b1220;
+      }
+
+      main {
+        min-height: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px 24px 12px;
+      }
+
+      .stage {
+        position: relative;
+        width: min(100%, calc((100vh - 104px) * 16 / 9));
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.48);
+      }
+
+      .slide {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .hotspot {
+        position: absolute;
+        inset-block: 0;
+        width: 24%;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .hotspot:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: -3px;
+      }
+
+      .previous {
+        left: 0;
+      }
+
+      .next {
+        right: 0;
+      }
+
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        min-height: 68px;
+        padding: 10px 20px 16px;
+      }
+
+      .control,
+      .download {
+        min-width: 44px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 150ms ease, transform 150ms ease;
+      }
+
+      .control:hover,
+      .download:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .control:active,
+      .download:active {
+        transform: translateY(1px);
+      }
+
+      .counter {
+        min-width: 72px;
+        text-align: center;
+        color: #cbd5e1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .download {
+        padding: 0 15px;
+        margin-left: 8px;
+      }
+
+      @media (max-width: 640px) {
+        main {
+          padding: 10px;
+        }
+
+        .stage {
+          width: 100%;
+        }
+
+        footer {
+          min-height: 62px;
+          padding-bottom: 10px;
+        }
+
+        .download {
+          font-size: 0;
+          width: 44px;
+          padding: 0;
+        }
+
+        .download::after {
+          content: "↓";
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="stage" aria-label="Презентация к ассессменту 2026">
+        <img class="slide" src="slides/slide-1.png" alt="Слайд 1 из 17" />
+        <button class="hotspot previous" type="button" aria-label="Предыдущий слайд"></button>
+        <button class="hotspot next" type="button" aria-label="Следующий слайд"></button>
+      </section>
+    </main>
+
+    <footer>
+      <button class="control previous" type="button" aria-label="Предыдущий слайд">←</button>
+      <span class="counter" aria-live="polite">1 / 17</span>
+      <button class="control next" type="button" aria-label="Следующий слайд">→</button>
+      <a class="download" href="assessment_anton_kurganskii_2026-09-25_v3_fedot_assessment.pptx" download>
+        Скачать PPTX
+      </a>
+      <button class="control fullscreen" type="button" aria-label="Полноэкранный режим">⛶</button>
+    </footer>
+
+    <script>
+      const slideCount = 17;
+      const slide = document.querySelector(".slide");
+      const counter = document.querySelector(".counter");
+      const stage = document.querySelector(".stage");
+      let currentSlide = 1;
+      let touchStartX = 0;
+
+      function showSlide(number) {
+        currentSlide = Math.min(slideCount, Math.max(1, number));
+        slide.src = `slides/slide-${currentSlide}.png`;
+        slide.alt = `Слайд ${currentSlide} из ${slideCount}`;
+        counter.textContent = `${currentSlide} / ${slideCount}`;
+        history.replaceState(null, "", `#${currentSlide}`);
+      }
+
+      function move(offset) {
+        const nextSlide = currentSlide + offset;
+        if (nextSlide < 1 || nextSlide > slideCount) return;
+        showSlide(nextSlide);
+      }
+
+      document.querySelectorAll(".previous").forEach((button) => {
+        button.addEventListener("click", () => move(-1));
+      });
+
+      document.querySelectorAll(".next").forEach((button) => {
+        button.addEventListener("click", () => move(1));
+      });
+
+      document.querySelector(".fullscreen").addEventListener("click", async () => {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+          return;
+        }
+        await stage.requestFullscreen();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) move(1);
+        if (["ArrowLeft", "PageUp"].includes(event.key)) move(-1);
+        if (event.key === "Home") showSlide(1);
+        if (event.key === "End") showSlide(slideCount);
+      });
+
+      stage.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+      }, { passive: true });
+
+      stage.addEventListener("touchend", (event) => {
+        const distance = event.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(distance) < 45) return;
+        move(distance < 0 ? 1 : -1);
+      }, { passive: true });
+
+      const requestedSlide = Number.parseInt(location.hash.slice(1), 10);
+      showSlide(Number.isInteger(requestedSlide) ? requestedSlide : 1);
+    </script>
+  </body>
+</html>
