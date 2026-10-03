@@ -36,3 +36,5 @@ __pycache__/
 *.avi
 *.mov
 *.mkv
+# Временные артефакты Codex
+.codex-*/
